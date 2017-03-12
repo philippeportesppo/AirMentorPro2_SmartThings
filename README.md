@@ -14,3 +14,4 @@ Remark 1: I am not sure I parsed correctly the temperature and humidity. Other p
 Remark 2: I didn't find any capability related to particule while some ST icons exist so if someone can share with me the right capabilities, or tell me how to request new ones, that would be great, same for VOC so that we could trigger actions based on these values. 
 
 Update 3/5/2017: no longer need pexpect, directly use blue-py to parse broadcast notifications. Modified the python script.
+Update 3/9/2017: added new alert event and smartapp to receive SmartThings notification in case of pollution above normal.

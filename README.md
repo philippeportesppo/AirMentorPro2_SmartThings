@@ -1,4 +1,8 @@
 # AirMentorPro2_SmartThings
+Update 3/11/2017: fixed temperature and humidity extraction and display. Now fully aligned with the AirMentor app results. Updated accordingly DTH groovy script, php and python scripts. 
+Update 3/9/2017: added new alert event and smartapp to receive SmartThings notification in case of pollution above normal.
+Update 3/5/2017: no longer need pexpect, directly use blue-py to parse broadcast notifications. Modified the python script.
+Initial Commit:
 What you need:
   - Raspberry PI 3 with Apach2 and PHP installed properly
   - Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network(otherwise the HubAction won't work and you need to implement external HTTPrequest instead)
@@ -13,5 +17,3 @@ What you need:
 Remark 1: I am not sure I parsed correctly the temperature and humidity. Other parameters were straight forward but these 2 didn't come directly, didn't match the Sensirion sensor raw data so I had to find a logic and decided they used an offset for some reasons. If someone can find a better formula, I would be happy.
 Remark 2: I didn't find any capability related to particule while some ST icons exist so if someone can share with me the right capabilities, or tell me how to request new ones, that would be great, same for VOC so that we could trigger actions based on these values. 
 
-Update 3/5/2017: no longer need pexpect, directly use blue-py to parse broadcast notifications. Modified the python script.
-Update 3/9/2017: added new alert event and smartapp to receive SmartThings notification in case of pollution above normal.

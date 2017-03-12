@@ -11,6 +11,7 @@
 		<td> PM2.5</td>
 		<td> PM10</td>
 		<td> Temperature_C</td>
+		<td> Temperature_Calibrated_C</td>
 		<td> Humdity</td>
 		<td> TVOC</td>
 		<td> IAQ</td>
@@ -41,10 +42,15 @@ if (isset($_GET["Action"])) {
 		else {
 			$_SESSION['PM10']="na";}
 
-		if (isset($_GET["TEM"])) {
-			$_SESSION['TEM']=$_GET["TEM"];}
+		if (isset($_GET["TEM_ACT"])) {
+			$_SESSION['TEM_ACT']=$_GET["TEM_ACT"];}
 		else {
-			$_SESSION['TEM']="na";}
+			$_SESSION['TEM_ACT']="na";}
+
+		if (isset($_GET["TEM_CAL"])) {
+			$_SESSION['TEM_CAL']=$_GET["TEM_CAL"];}
+		else {
+			$_SESSION['TEM_CAL']="na";}
 
 		if (isset($_GET["HUM"])) {
 			$_SESSION['HUM']=$_GET["HUM"];}
@@ -73,7 +79,8 @@ if (isset($_GET["Action"])) {
 		echo "<td>" . $_SESSION['CO2'] . "</td>";
 		echo "<td>" . $_SESSION['PM25'] . "</td>";
 		echo "<td>" . $_SESSION['PM10'] . "</td>";
-		echo "<td>" . $_SESSION['TEM'] . "</td>";
+		echo "<td>" . $_SESSION['TEM_ACT'] . "</td>";
+		echo "<td>" . $_SESSION['TEM_CAL'] . "</td>";
 		echo "<td>" . $_SESSION['HUM'] . "</td>";
 		echo "<td>" . $_SESSION['TVOC'] . "</td>";
 		echo "<td>" . $_SESSION['IAQ'] . "</td>";

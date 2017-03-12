@@ -2,12 +2,6 @@
 # 
 # Philippe Portes February 2017 based on Michael Saunby. April 2013
 #
-# Notes.
-# pexpect uses regular expression so characters that have special meaning
-# in regular expressions, e.g. [ and ] must be escaped with a backslash.
-#
-#   Copyright 2013 Michael Saunby
-#
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #   You may obtain a copy of the License at
@@ -19,14 +13,9 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-
-import pexpect
 import sys
-import time
-import json
-import select
-import re
 import requests
+from bluepy.btle import Scanner, DefaultDelegate
 
 AMP_CO2=0
 AMP_PM25=0
@@ -37,92 +26,105 @@ AMP_TEM=0
 AMP_IAQ=0
 AMP_BATT=0
 AMP_CHARG=0
+ 
+class AirMentorProDelegate(DefaultDelegate):
+    def __init__(self, bluetooth_adr):
+        self.adr = bluetooth_adr
+	self.s=requests.Session()
+	self.AMP_CO2=0
+	self.AMP_PM25=0
+	self.AMP_PM10=0
+	self.AMP_TVOC=0
+	self.AMP_HUM=0
+	self.AMP_TEM=0
+	self.AMP_IAQ=0
+	self.AMP_BATT=0
+	self.AMP_CHARG=0
+        DefaultDelegate.__init__(self)
 
-class SensorTag:
-
-    def __init__( self, bluetooth_adr ):
-        self.con = pexpect.spawn('gatttool -b ' + bluetooth_adr + ' --interactive')
-        self.con.expect('\[LE\]>', timeout=600)
-        print "Preparing to connect. You might need to press the side button..."
-        self.con.sendline('Connect')
-        # test for success of connect
-        self.con.expect('Connection successful.*\[LE\]>', timeout = 10)
-        print "Connected"
-        # Earlier versions of gatttool returned a different message.  Use this pattern -
-        #self.con.expect('\[CON\].*>')
-        self.cb = {}
-        return
-
-
-    # Notification handle = 0x002C value (in bytes): [CO2:2 PM2.2:2 PM10:2 Temp:2 Humid:2 TVOC: 2 IAQ:2]
-    def notification_loop( self ):
-        while True:
-	    try:
-            pnum = self.con.expect('Notification handle = .*', timeout = 60000)
-            handle_byte=re.findall('Notification handle = (\S*)', self.con.after)
-            print "handle_byte: ", handle_byte 
-            if int(handle_byte[0],16)==0x002c:
-                hex_data=re.findall('value: (.*)\r', self.con.after)
-                print "hex_data: ", hex_data  
-                hex_data=hex_data[0].split() 
-                
-                AMP_CO2=int(hex_data[0],16)*16*16+int(hex_data[1],16)
-                print " AMP_CO2", AMP_CO2,
-                
-                AMP_PM25=int(hex_data[2],16)*16*16+int(hex_data[3],16)
-                print " AMP_PM25", AMP_PM25,
-                
-                AMP_PM10=int(hex_data[4],16)*16*16+int(hex_data[5],16)
-                print " AMP_PM10", AMP_PM10,
-                
-                AMP_TVOC=int(hex_data[10],16)*16*16+int(hex_data[11],16)
-                print " AMP_TVOC", AMP_TVOC,
-                
-                if hex_data[17]!='ff':
-                   AMP_IAQ=int(hex_data[12],16)*16*16+int(hex_data[13],16)
-                   print " AMP_IAQ", AMP_IAQ,
-                else:
-                   print "No valid IAQ in paquet"
+    def handleDiscovery(self, dev, isNewDev, isNewdata):
+        #print "Notification received #2"
+	if dev.addr == self.adr:
+	    for scan in dev.getScanData():
+		
+            	if scan[0] == 0xff: # Proprietary
+	            payload = {}
+			      
+                    if int(scan[2][0:4],16)==0x2221:			      
+                        print scan,
+			hex_data = scan[2]     
+		        #      [TVOC][Temp][Humi][IAQ ]
+			#[2221][00b9][1963][332d][0145]			      
                    
-                AMP_BATT=int(hex_data[16],16)
-                print " AMP_BATT", AMP_BATT,
+			self.AMP_TVOC=int(hex_data[4:8],16)
+                   	print "AMP_TVOC",self.AMP_TVOC,
 
-                AMP_TEM=((int(hex_data[6],16)*16*16+int(hex_data[7],16))-int('11DE',16))/100.0
-                print "AMP_TEM: ", AMP_TEM,
-                
-                AMP_HUM=((int(hex_data[8],16)*16*16+int(hex_data[9],16))-int('23AB',16))/100.0
-                print "AMP_HUM: ", AMP_HUM
-                   
-                payload = {}
-                try:
-                           s=requests.Session()
-                           requests.get("http://localhost/airmentorpro2.php?Action=set&CO2="+str(AMP_CO2)+"&PM25="+str(AMP_PM25)+"&PM10="+str(AMP_PM10)+"&TEM="+str(AMP_TEM)+"&HUM="+str(AMP_HUM)+"&TVOC="+str(AMP_TVOC)+"&IAQ="+str(AMP_IAQ)+"&BATT="+str(AMP_BATT), data=payload) 
-                except:
-                    print "Couldn't send request..."
-            except pexpect.TIMEOUT:
-               print "TIMEOUT exception!"
-               break
-        pass
+	                self.AMP_TEM=(int(hex_data[8:12],16)-0x11DE)/100.0
+		   	print "AMP_TEM: ",self.AMP_TEM,
 
-    def register_cb( self, handle, fn ):
-        self.cb[handle]=fn;
-        return
+		   	self.AMP_HUM=(int(hex_data[12:16],16)-0x221B)/100.0  #22210095[1968][392a][0023] 59%
+		   	                                                     
+		   	                                                     #222100ec[1870][0c2a][0025] 45%
+                   	print "AMP_HUM: ",self.AMP_HUM,                      #222100ee[1866][0c2b][0026] 46%
+                   	
+                   							     #222100f2[1861][0c2d][0026] 48%
+
+ 			self.AMP_IAQ=int(hex_data[16:],16)
+                        print "AMP_IAQ",self.AMP_IAQ
+
+		    	try:
+	                   requests.get("http://localhost/airmentorpro2.php?Action=set&CO2="+str(self.AMP_CO2)+"&PM25="+str(self.AMP_PM25)+"&PM10="+str(self.AMP_PM10)+"&TEM="+str(self.AMP_TEM)+"&HUM="+str(self.AMP_HUM)+"&TVOC="+str(self.AMP_TVOC)+"&IAQ="+str(self.AMP_IAQ)+"&BATT="+str(self.AMP_BATT), data=payload) 
+			except:
+                       	   print "Couldn't send request..."
+                                                   
+		    else:
+			if int(scan[2][0:4],16)==0x2121:
+			    hex_data = scan[2]      
+			    #       [CO2 ][PM25][PM10]
+			    # [2121][2710][0003][0003]0000
+                            print scan,
+			    self.AMP_CO2=int(hex_data[4:8],16)
+		            print "AMP_CO2",self.AMP_CO2,
+
+	                    self.AMP_PM25=int(hex_data[8:12],16)
+	                    print "AMP_PM25",self.AMP_PM25,
+
+	                    self.AMP_PM10=int(hex_data[12:16],16)
+	                    print "AMP_PM10",self.AMP_PM10
+            
+                            #AMP_BATT=int(hex_data[16],16)
+                            #print "self.AMP_BATT",self.AMP_BATT,
+                            try:
+	                        requests.get("http://localhost/airmentorpro2.php?Action=set&CO2="+str(self.AMP_CO2)+"&PM25="+str(self.AMP_PM25)+"&PM10="+str(self.AMP_PM10)+"&TEM="+str(self.AMP_TEM)+"&HUM="+str(self.AMP_HUM)+"&TVOC="+str(self.AMP_TVOC)+"&IAQ="+str(self.AMP_IAQ)+"&BATT="+str(self.AMP_BATT), data=payload) 
+			    except:
+                       	        print "Couldn't send request..."
+                #else:
+                #    print "[",scan[0],":", scan[2], "]"			 
 
 
-def main():    
+def main():
+    global datalog
+    global barometer
+    
     bluetooth_adr = sys.argv[1]
+
     print  bluetooth_adr
 
     while True:
-     try:   
-      print "[re]starting.."
+        try:   
+            # BTLE UUSB is on hci1, so pass 1 to Scanner
+            scanner = Scanner(1).withDelegate(AirMentorProDelegate(bluetooth_adr))
 
-      tag = SensorTag(bluetooth_adr)
-      print "Ready to parse notifications"
-      tag.notification_loop()
-      print "Have to restart..."
-     except:
-      pass
+            
+
+   	    while(1):
+	        scanner.start()
+	        scanner.process(1)
+	        scanner.stop()
+                
+
+        except:
+            pass
 
 if __name__ == "__main__":
     main()

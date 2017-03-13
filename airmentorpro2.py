@@ -87,7 +87,7 @@ class AirMentorProDelegate(DefaultDelegate):
                             #AMP_BATT=int(hex_data[16],16)
                             #print "self.AMP_BATT",self.AMP_BATT,
                             try:
-	                        requests.get("http://localhost/airmentorpro2.php?Action=set&CO2="+str(self.AMP_CO2)+"&PM25="+str(self.AMP_PM25)+"&PM10="+str(self.AMP_PM10)+"&TEM_ACT="+str(self.AMP_TEM)++"&TEM_CAL"+str(self.AMP_TEMP_CAL)+"&HUM="+str(self.AMP_HUM)+"&TVOC="+str(self.AMP_TVOC)+"&IAQ="+str(self.AMP_IAQ)+"&BATT="+str(self.AMP_BATT), data=payload) 
+	                        requests.get("http://localhost/airmentorpro2.php?Action=set&CO2="+str(self.AMP_CO2)+"&PM25="+str(self.AMP_PM25)+"&PM10="+str(self.AMP_PM10)+"&TEM_ACT="+str(self.AMP_TEM)+"&TEM_CAL"+str(self.AMP_TEMP_CAL)+"&HUM="+str(self.AMP_HUM)+"&TVOC="+str(self.AMP_TVOC)+"&IAQ="+str(self.AMP_IAQ)+"&BATT="+str(self.AMP_BATT), data=payload) 
 			    except:
                        	        print "Couldn't send request..."
                 #else:
@@ -95,8 +95,6 @@ class AirMentorProDelegate(DefaultDelegate):
 
 
 def main():
-    global datalog
-    global barometer
     
     bluetooth_adr = sys.argv[1]
 

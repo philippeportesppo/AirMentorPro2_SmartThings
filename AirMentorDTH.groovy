@@ -133,10 +133,7 @@ tiles(scale: 2) {
 
     standardTile("RealFeellevel", "device.RealFeellevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
             state "default",  label: 'Real Feel: ${currentValue}º', unit:"dC"}
-            
-    standardTile("Section", "device.Section", decoration:"flat", width: 6, height: 2) {
-            state "default",  label: 'UnderGroundWeather (outside):', backgroundColor: "#c9900c"}
-            
+                        
     standardTile("UGWtemperaturecallevel", "device.UGWtemperaturecallevel", width: 2, height: 2, canChangeIcon: false) {
             state "default", label: '${currentValue}', 
                   icon: "st.Weather.weather2"       }        
@@ -150,8 +147,8 @@ tiles(scale: 2) {
 	standardTile("UGWdewpointlevel", "device.UGWdewpointlevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
             state "default", label: 'Dew Point: ${currentValue}'}
             
-    standardTile("refresh", "device.thermostatMode", decoration: "ring", width: 2, height: 2) {
- 		state "default", action:"refresh", icon:"st.secondary.refresh"
+    standardTile("refresh", "device.refresh", decoration: "ring", width: 2, height: 2) {
+ 		state "default", action:"refresh.refresh", icon:"st.secondary.refresh"
  		} 
 	
     
@@ -166,7 +163,7 @@ tiles(scale: 2) {
             [value: 200, color: "#5100a3"]]
    		}
 	main("iaq_main")
-	details(["iaqlevel","co2level","pm2_5level","pm10level","tvoclevel","temperaturecallevel","humiditylevel"/*,"EMClevel","RealFeellevel","dewpointlevel","Section","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGWIcon"*/,"refresh" ])
+	details(["iaqlevel","co2level","pm2_5level","pm10level","tvoclevel","temperaturecallevel","humiditylevel","EMClevel","RealFeellevel","dewpointlevel","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGWIcon","refresh" ])
  	}
     
     
@@ -186,7 +183,7 @@ def installed() {
 def updated() {
 	log.debug "Executing 'updated'"
 
-    refresh()
+    sendEvent(name: "refresh")
 
 }
 
@@ -332,72 +329,89 @@ def parse(description) {
         def UGW_DewPoint_event  =  createEvent(name: "UGWdewpointlevel", value: UGW_DewPoint_float.toString())
         def UGW_Humidity_event  =  createEvent(name: "UGWhumiditylevel", value: UGW_Humidity_float.toString())
        	def UGW_Temp_event      =  createEvent(name: "UGWtemperaturecallevel", value: UGW_Temp_float.toString() )  
-       
+       	
+        def alert_event=[]
  		log.debug "Generating alerts if not good"
-        def iaq_event_alert = generate_app_event( "IAQ",iaq_int.toInteger(), 50, 100,150, 200)
-        def co2_event_alert = generate_app_event( "CO2",co2_int.toInteger(), 800, 1200,2000, 5000)
-        def pm2_5_event_alert = generate_app_event( "PM2_5",pm2_5_int.toInteger(), 15, 40, 65, 105)
-        def pm10_event_alert = generate_app_event( "PM10",pm10_int.toInteger(), 55, 155, 255, 355)
-        def tvoc_event_alert = generate_app_event( "TVOC",tvoc_int.toInteger(), 312, 560, 1000, 3000)
         
-      return [co2_event,pm2_5_event,pm10_event, tvoc_event, IAQ_event, IAQ_main_event, dew_point_event, temp_cal_event, hum_event, EMC_event, Indoor_Temp_event, UGW_feelslike_event, UGW_DewPoint_event, UGW_Humidity_event, UGW_Temp_event, UGW_Icon_Url]     
-      //return [co2_event,pm2_5_event,pm10_event, tvoc_event, IAQ_event, IAQ_main_event, temp_event, hum_event, /*UGW_feelslike_event,UGW_DewPoint_event, UGW_Humidity_event ,UGW_Temp_event*/]     
-
+        def map = generate_app_event( "IAQ",iaq_int.toInteger(), 50, 100,150, 200)
+        if (map) {
+			alert_event = alert_event+createEvent(map)
+		}
+	 
+        map = generate_app_event( "CO2",co2_int.toInteger(), 800, 1200,2000, 5000)
+        if (map) {
+			alert_event = alert_event+createEvent(map)
+		}
+        map = generate_app_event( "PM2_5",pm2_5_int.toInteger(), 15, 40, 65, 105)
+        if (map) {
+			alert_event = alert_event+createEvent(map)
+		}
+        map = generate_app_event( "PM10",pm10_int.toInteger(), 55, 155, 255, 355)
+        if (map) {
+			alert_event = alert_event+createEvent(map)
+		}
+        map = generate_app_event( "TVOC",tvoc_int.toInteger(), 312, 560, 1000, 3000)
+        if (map) {
+			alert_event = alert_event+createEvent(map)
+		}
+        return alert_event+[co2_event,pm2_5_event,pm10_event, tvoc_event, IAQ_event, IAQ_main_event, dew_point_event, temp_cal_event, hum_event, EMC_event, Indoor_Temp_event, UGW_feelslike_event, UGW_DewPoint_event, UGW_Humidity_event, UGW_Temp_event]     
+		
+        
 	}
  
 }
 
-private Map generate_app_event( name_, int value_, int thres_moderate, int thres_unhealthy_sensitive, int thres_unhealthy, int thres_very_unhealty)
+private generate_app_event( name_, int value_, int thres_moderate, int thres_unhealthy_sensitive, int thres_unhealthy, int thres_very_unhealty)
 {
-
-  def bcst_value_=""
-  def desc_=""
+  def map = [:] 
   def fire_event = false
+  map.name = name_
   log.debug("generate_app_event: ${name_} ${value_} ${thres_moderate} ${thres_unhealthy_sensitive} ${thres_unhealthy} ${thres_very_unhealty}")
   if (value_>thres_very_unhealty)
   	{   
-        bcst_value_="very unhealthy"
-        desc_="${name_} alert: ${bcst_value_}"
+        map.value="very unhealthy"
+        map.descriptionText="${name_} alert: ${map.value}"
 
         fire_event=true
     }
   else if (value_>thres_unhealthy)
   	{
-  		bcst_value_="unhealthy"
-        desc_="${name_} alert: ${bcst_value_}"
+  		map.value="unhealthy"
+        map.desciptionText="${name_} alert: ${map.value}"
 
         fire_event=true
     }
   else if (value_>thres_unhealthy_sensitive)
   	{
-  		bcst_value_="unhealthy sensitive persons"
-        desc_="${name_} alert: ${bcst_value_}"
+  		map.value="unhealthy sensitive persons"
+        map.descriptionText="${name_} alert: ${map.value}"
 
         fire_event=true
     }
   else if (value_>thres_moderate)
   	{
-  		bcst_value_="moderate"
-        desc_="${name_} alert: ${bcst_value_}"
+  		map.value="moderate"
+        map.descriptionText="${name_} alert: ${map.value}"
 
         fire_event=true
     }
   else
   	{
-  		bcst_value_="good"
-        desc_="${name_} alert: ${bcst_value_}"
+  		map.value="good"
+        map.descriptionText="${name_} alert: ${map.value}"
 		// change to true if want to be notified of good measures
         fire_event=false
     }   
   if (fire_event)
   	{
-    	log.debug("Generated alert for : ${name_} ${value_}")
-  		return sendEvent(name: name_, value: bcst_value_, descriptionText: desc_)
+    	log.debug("Generated alert for : ${name_} ${map.value}")
+  		map.isStateChange = true 
+    	map.displayed = true    
+    	return map
     }
   else
   	{
      	log.debug("No alert generated for ${name_}")
-  	 	return null
     }
 }
 

@@ -1,4 +1,5 @@
 # AirMentorPro2_SmartThings
+Update 3/14/2017: Added new environmental information: Dew point, Equilibrium Moisture Content, Indoor real feel. Added UnderGround Weather  outdoor information (temperature, humidity, real feel, dew point) 
 Update 3/12/2017: fixed bug and code-cleaning in airmentorpro2.py
 Update 3/11/2017: fixed temperature and humidity extraction and display. Now fully aligned with the AirMentor app results. Updated accordingly DTH groovy script, php and python scripts. 
 Update 3/9/2017: added new alert event and smartapp to receive SmartThings notification in case of pollution above normal.

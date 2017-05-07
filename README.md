@@ -1,21 +1,20 @@
 # AirMentorPro2_SmartThings
-Update 3/14/2017: Added new environmental information: Dew point, Equilibrium Moisture Content, Indoor real feel. Added UnderGround Weather  outdoor information (temperature, humidity, real feel, dew point) 
-Update 3/12/2017: fixed bug and code-cleaning in airmentorpro2.py
-Update 3/11/2017: fixed temperature and humidity extraction and display. Now fully aligned with the AirMentor app results. Updated accordingly DTH groovy script, php and python scripts. 
-Update 3/9/2017: added new alert event and smartapp to receive SmartThings notification in case of pollution above normal.
-Update 3/5/2017: no longer need pexpect, directly use blue-py to parse broadcast notifications. Modified the python script.
-Initial Commit:
 What you need:
-  - Raspberry PI 3 with Apach2 and PHP installed properly
-  - Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network(otherwise the HubAction won't work and you need to implement external HTTPrequest instead)
-  - USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)
-  - Installation on Raspberry of Gatttool/Bluez/Blue-pi and all dependencies
-  - Installation on Raspberry of python libs: requests, pexpect (only for first version/commit of the python script
-  - Put in Raspberry /var/www/html folder the airmentorpro2.php
-  - Create a Device Handler in SmartThings based on code in the .groovy file then save and publish for yourself
-  - Create a device in Smartthings web page based on this device handler. Put anything as Device Network Id as the Device Handler will overwrite it at first run. Don't ever change it after if your raspberry doesn't change its static IP address otherwise, the parse method is sent for some reason to the former device despite the HubAction is sent by the new instance...
-  - Configure the Smarthing device with the IP, port of the Raspberry and URL of the webpage and self-refreshing regularly.You can also access the web page directly by a http://[yourraspberry IP]/airmentorpro2.php?Action=get
-  
-Remark 1: I am not sure I parsed correctly the temperature and humidity. Other parameters were straight forward but these 2 didn't come directly, didn't match the Sensirion sensor raw data so I had to find a logic and decided they used an offset for some reasons. If someone can find a better formula, I would be happy.
-Remark 2: I didn't find any capability related to particule while some ST icons exist so if someone can share with me the right capabilities, or tell me how to request new ones, that would be great, same for VOC so that we could trigger actions based on these values. 
 
+Raspberry PI 3 with Apach2 and PHP installed properly<p></p>
+  Raspberry Pi PHP and Apache installation instructions (https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md)
+Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network(otherwise the HubAction won't work and you need to implement external HTTPrequest instead)<p></p>
+1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I didn't make it with the internal BT-LE of the Pi, I used this external one.<p></p>
+Additional installation on Raspberry:<p></p>
+  <li>Bluez (http://www.elinux.org/RPi_Bluetooth_LE)<p></p></li>
+  <li>BluePy (https://github.com/IanHarvey/bluepy)<p></p></li>
+  <li>requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p></li>
+Put in Raspberry /var/www/html folder the file : airmentorpro2.php airmentorpro2.php<p></p>
+Put in /home/pi/Documents the python script airmentorpro2.pyYou will launch this first python script by: python airmentorpro2.py [your AirMentor MAC] &As this script runs an infinit loop, better to fork it with &<p></p>
+Put in /home/pi/Documents the python script undergroundweather.py   This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/  The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on my GitHub.<p></p>
+In Smartthing IDE: Create a Device Handler (then save and publish for yourself) from AirMentorDTH.groovy <p></p>
+In Smartthing IDE: Create a SmartApp (then save and publish for yourself) from SmartApp.groovy. The Smartapp is here to allow the alerting on high and very high pollution. You can tweak the smartappto also get alerts on medium pollution.<p></p>
+Create a device in Smartthings web page based on this device handler. Put anything as Device Network Id as the Device Handler will overwrite it at first run. Don't ever change it after if your raspberry doesn't change its static IP address otherwise, the parse method is sent for some reason to the former device despite the HubAction is sent by the new instance...<p></p>
+Configure the Smarthing device with the IP, port of the Raspberry and URL of the webpage and self-refreshing regularly.You can also access the web page directly by a http://[yourraspberry IP]/airmentorpro2.php?Action=get<p></p>
+<b>IMPORTANT:</b> use pollster smartapp to candence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>
+Hope you like it.

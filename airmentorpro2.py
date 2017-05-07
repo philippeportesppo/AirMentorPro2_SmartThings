@@ -96,7 +96,7 @@ class AirMentorProDelegate(DefaultDelegate):
 
 def main():
     
-    bluetooth_adr = sys.argv[1]
+    bluetooth_adr = sys.argv[1].lower()
 
     print  bluetooth_adr
 

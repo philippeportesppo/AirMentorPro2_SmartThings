@@ -1,7 +1,7 @@
 # AirMentorPro2_SmartThings
 What you need:
 
-Raspberry PI 3 with Apach2 and PHP installed properly
+Raspberry PI 3 with Apach2 and PHP installed properly<p></p>
   Raspberry Pi PHP and Apache installation instructions (https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md)
 Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network(otherwise the HubAction won't work and you need to implement external HTTPrequest instead)
 1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I didn't make it with the internal BT-LE of the Pi, I used this external one.

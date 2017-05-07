@@ -6,9 +6,9 @@ Raspberry PI 3 with Apach2 and PHP installed properly<p></p>
 Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network(otherwise the HubAction won't work and you need to implement external HTTPrequest instead)<p></p>
 1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I didn't make it with the internal BT-LE of the Pi, I used this external one.<p></p>
 Additional installation on Raspberry:<p></p>
-  Bluez (http://www.elinux.org/RPi_Bluetooth_LE)<p></p>
-  BluePy (https://github.com/IanHarvey/bluepy)<p></p>
-  requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p>
+  <li>Bluez (http://www.elinux.org/RPi_Bluetooth_LE)<p></p></li>
+  <li>BluePy (https://github.com/IanHarvey/bluepy)<p></p></li>
+  <li>requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p></li>
 Put in Raspberry /var/www/html folder the file : airmentorpro2.php airmentorpro2.php<p></p>
 Put in /home/pi/Documents the python script airmentorpro2.pyYou will launch this first python script by: python airmentorpro2.py [your AirMentor MAC] &As this script runs an infinit loop, better to fork it with &<p></p>
 Put in /home/pi/Documents the python script undergroundweather.py   This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/  The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on my GitHub.<p></p>

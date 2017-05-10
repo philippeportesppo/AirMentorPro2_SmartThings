@@ -10,9 +10,9 @@ Additional installation on Raspberry:<p></p>
   <li>BluePy (https://github.com/IanHarvey/bluepy)<p></p></li>
   <li>requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p></li>
 Put in Raspberry /var/www/html folder the file : airmentorpro2.php airmentorpro2.php<p></p>
-Put in /home/pi/Documents the python script airmentorpro2.pyYou will launch this first python script by: <b>sudo /usr/bin/python airmentorpro2.py [your AirMentor MAC] [your hci#] & </b> <p></p>As this script runs an infinit loop, better to fork it with &<p></p>
+Put in /home/pi/Documents the python script airmentorpro2.pyYou will launch this first python script by: <b>sudo /usr/bin/python /var/www/html/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b> <p></p>As this script runs an infinit loop, better to fork it with &<p></p>
 Put in /home/pi/Documents the python script undergroundweather.py   This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/  The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on my GitHub.<p></p>
-<p></p> You will launche this script by: <b>sudo /usr/bin/python /var/www/html/airmentor/undergroundweather.py [yourAPI key] [state] [city] &</b>
+<p></p> You will launche this script by: <b>sudo /usr/bin/python /var/www/html/undergroundweather.py [yourAPI key] [state] [city] &</b>
 <p>As this script runs an infinit loop, better to fork it with & too</p>
 In Smartthing IDE: Create a Device Handler (then save and publish for yourself) from AirMentorDTH.groovy <p></p>
 In Smartthing IDE: Create a SmartApp (then save and publish for yourself) from SmartApp.groovy. The Smartapp is here to allow the alerting on high and very high pollution. You can tweak the smartappto also get alerts on medium pollution.<p></p>

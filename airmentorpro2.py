@@ -36,10 +36,10 @@ class AirMentorProDelegate(DefaultDelegate):
         DefaultDelegate.__init__(self)
 
     def handleDiscovery(self, dev, isNewDev, isNewdata):
-        #print "Notification received #2"
+        #print "Notification received #2 from:", dev.addr, " ours is:",self.adr
 	if dev.addr == self.adr:
+            #print dev.getScanData()
 	    for scan in dev.getScanData():
-		
             	if scan[0] == 0xff: # Proprietary
 	            payload = {}
 			      
@@ -97,21 +97,19 @@ class AirMentorProDelegate(DefaultDelegate):
 def main():
     
     bluetooth_adr = sys.argv[1].lower()
-
-    print  bluetooth_adr
+    hci = sys.argv[2] # hci # to use
+    print  "Will follow broadcasts from:",bluetooth_adr
+    print  "hci used: ",hci
 
     while True:
         try:   
-            # BTLE UUSB is on hci1, so pass 1 to Scanner
-            scanner = Scanner(1).withDelegate(AirMentorProDelegate(bluetooth_adr))
-
-            
+            # BTLE UUSB is on hci0, so pass 0 to Scanner
+            scanner = Scanner(hci).withDelegate(AirMentorProDelegate(bluetooth_adr))
 
    	    while(1):
 	        scanner.start()
 	        scanner.process(1)
 	        scanner.stop()
-                
 
         except:
             pass

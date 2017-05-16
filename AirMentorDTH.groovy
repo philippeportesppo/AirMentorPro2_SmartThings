@@ -26,11 +26,12 @@ preferences {
 }
 metadata {
 	definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", oauth: true) {
-		capability "Carbon Dioxide Measurement"
-		capability "Relative Humidity Measurement"
-		capability "Temperature Measurement"
-		capability "refresh"
+    	capability "refresh"
         capability "polling"  
+		capability "Carbon Dioxide Measurement"
+        capability "capability.temperatureMeasurement"
+        capability "capability.relativeHumidityMeasurement"
+
 }
 
 
@@ -146,9 +147,40 @@ tiles(scale: 2) {
 
 	standardTile("UGWdewpointlevel", "device.UGWdewpointlevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
             state "default", label: 'Dew Point: ${currentValue}'}
+    standardTile("UGW_Icon_UrlIcon", "device.UGW_Icon_UrlIcon",  decoration:"flat", width: 2, height: 2) {
+				state "Chance of Flurries",	icon: "http://icons.wxug.com/i/c/k/chanceflurries.gif", label: "Chance of Flurries"	
+				state "Chance of Rain",		icon: "http://icons.wxug.com/i/c/k/chancerain.gif",		label: "Chance of Rain"
+				state "Chance Rain",		icon:"http://icons.wxug.com/i/c/k/chancerain.gif",		label: "Chance Rain"
+				state "Chance of Freezing Rain",	icon:"http://icons.wxug.com/i/c/k/chancesleet.gif",label: "Chance of Freezing Rain"
+				state "Chance of Sleet",icon:"http://icons.wxug.com/i/c/k/chancesleet.gif",label: "Chance of Sleet"
+                state "Chance of Snow",icon:"http://icons.wxug.com/i/c/k/chancesnow.gif",label: "Chance of Snow"
+                state "Chance of a Thunderstorm",icon:"http://icons.wxug.com/i/c/k/chancetstorms.gif",label: "Chance of a Thunderstorm"
+                state "Chance of Thunderstorm",icon:"http://icons.wxug.com/i/c/k/chancetstorms.gif",label: "Chance of Thunderstorm"
+                state "Clear",icon:"http://icons.wxug.com/i/c/k/clear.gif",label: "Clear"
+                state "Cloudy",icon:"http://icons.wxug.com/i/c/k/cloudy.gif",label: "Cloudy"
+                state "Flurries",icon:"http://icons.wxug.com/i/c/k/flurries.gif",label: "Flurries"
+                state "Fog",icon:"http://icons.wxug.com/i/c/k/fog.gif",label: "Fog"
+                state "Haze",icon:"http://icons.wxug.com/i/c/k/hazy.gif",label: "Haze"
+                state "Mostly Cloudy",icon:"http://icons.wxug.com/i/c/k/mostlycloudy.gif",label: "Mostly Cloudy"
+                state "Mostly Sunny",icon:"http://icons.wxug.com/i/c/k/mostlysunny.gif",label: "Mostly Sunny"
+                state "Partly Cloudy",icon:"http://icons.wxug.com/i/c/k/partlycloudy.gif",label: "Partly Cloudy"
+                state "Partly Sunny",icon:"http://icons.wxug.com/i/c/k/partlysunny.gif",label: "Partly Sunny"
+                state "Freezing Rain",icon:"http://icons.wxug.com/i/c/k/sleet.gif",label: "Freezing Rain"
+                state "Rain",icon:"http://icons.wxug.com/i/c/k/rain.gif",label: "Rain"
+                state "Sleet",icon:"http://icons.wxug.com/i/c/k/sleet.gif",label: "Sleet"
+                state "Snow",icon:"http://icons.wxug.com/i/c/k/snow.gif",label: "Snow"
+                state "Sunny",icon:"http://icons.wxug.com/i/c/k/sunny.gif",label: "Sunny"
+                state "Thunderstorms",icon:"http://icons.wxug.com/i/c/k/tstorms.gif",label: "Thunderstorms"
+                state "Thunderstorm",icon:"http://icons.wxug.com/i/c/k/tstorms.gif",label: "Thunderstorm"
+                state "Unknown",icon:"http://icons.wxug.com/i/c/k/unknown.gif",label: "Unknown"
+                state "Overcast",icon:"http://icons.wxug.com/i/c/k/cloudy.gif",label: "Overcast"
+                state "Scattered Clouds",icon:"http://icons.wxug.com/i/c/k/partlycloudy.gif",label: "Scattered Clouds"}
             
-    standardTile("refresh", "device.refresh", decoration: "ring", width: 2, height: 2) {
- 		state "default", action:"refresh.refresh", icon:"st.secondary.refresh"
+            
+            
+            
+    standardTile("refresh", "device.thermostatMode", decoration: "ring", width: 2, height: 2) {
+ 		state "default", action:"refresh", icon:"st.secondary.refresh"
  		} 
 	
     
@@ -163,7 +195,7 @@ tiles(scale: 2) {
             [value: 200, color: "#5100a3"]]
    		}
 	main("iaq_main")
-	details(["iaqlevel","co2level","pm2_5level","pm10level","tvoclevel","temperaturecallevel","humiditylevel","EMClevel","RealFeellevel","dewpointlevel","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGWIcon","refresh" ])
+	details(["iaqlevel","co2level","pm2_5level","pm10level","tvoclevel","temperaturecallevel","humiditylevel","EMClevel","RealFeellevel","dewpointlevel","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGW_Icon_UrlIcon","refresh" ])
  	}
     
     
@@ -175,26 +207,15 @@ tiles(scale: 2) {
 
 def installed() {
 	log.debug "Executing 'installed'"
-    log.debug "Scheduling refresh every 3 minutes"
-    schedule("0 0/3 * * * ?", refresh)
     
 }
 
 def updated() {
 	log.debug "Executing 'updated'"
+ 	refresh()
+	log.debug "Executing 'updated'"
+	//schedule("0 0/3 * * * ?", refresh)
 
-    sendEvent(name: "refresh")
-
-}
-
-def initialize() {
-    log.debug "initialize"
-    
-
-}
-private String getDeviceIcon() {
-	 
-	return UGW_icon_Url_var 
 }
 
 
@@ -235,6 +256,7 @@ def parse(description) {
         log.debug "UGW_DewPoint:${html.body.table.tr[1].td[10].text()}"
         log.debug "UGW_Humidity:${html.body.table.tr[1].td[11].text()}"
         log.debug "UGW_Temp:${html.body.table.tr[1].td[12].text()}"
+        log.debug "UGW_Icon_Url:${html.body.table.tr[1].td[13].text()}"
         
         def co2_int     = html.body.table.tr[1].td[0].text()
         def pm2_5_int   = html.body.table.tr[1].td[1].text()
@@ -248,7 +270,8 @@ def parse(description) {
         def UGW_feelslike_float  = html.body.table.tr[1].td[9].text()
         def UGW_DewPoint_float  = html.body.table.tr[1].td[10].text()
         def UGW_Humidity_float = html.body.table.tr[1].td[11].text()
-        def UGW_Temp_float = html.body.table.tr[1].td[12].text()  
+        def UGW_Temp_float = html.body.table.tr[1].td[12].text() 
+        def UGW_Icon_Url = html.body.table.tr[1].td[13].text()
 
 		// You can compute your own country IAQ based on local regulations.
   		// Or use the Air Mentor Pro 2 IAQ
@@ -329,7 +352,7 @@ def parse(description) {
         def UGW_DewPoint_event  =  createEvent(name: "UGWdewpointlevel", value: UGW_DewPoint_float.toString())
         def UGW_Humidity_event  =  createEvent(name: "UGWhumiditylevel", value: UGW_Humidity_float.toString())
        	def UGW_Temp_event      =  createEvent(name: "UGWtemperaturecallevel", value: UGW_Temp_float.toString() )  
-       	
+       	def UGW_Icon_UrlIcon_event      =  createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Url.toString() )
         def alert_event=[]
  		log.debug "Generating alerts if not good"
         
@@ -354,7 +377,7 @@ def parse(description) {
         if (map) {
 			alert_event = alert_event+createEvent(map)
 		}
-        return alert_event+[co2_event,pm2_5_event,pm10_event, tvoc_event, IAQ_event, IAQ_main_event, dew_point_event, temp_cal_event, hum_event, EMC_event, Indoor_Temp_event, UGW_feelslike_event, UGW_DewPoint_event, UGW_Humidity_event, UGW_Temp_event]     
+        return alert_event+[co2_event,pm2_5_event,pm10_event, tvoc_event, IAQ_event, IAQ_main_event, dew_point_event, temp_cal_event, hum_event, EMC_event, Indoor_Temp_event, UGW_feelslike_event, UGW_DewPoint_event, UGW_Humidity_event, UGW_Temp_event, UGW_Icon_UrlIcon_event]     
 		
         
 	}
@@ -393,7 +416,7 @@ private generate_app_event( name_, int value_, int thres_moderate, int thres_unh
   		map.value="moderate"
         map.descriptionText="${name_} alert: ${map.value}"
 
-        fire_event=true
+        fire_event=false
     }
   else
   	{

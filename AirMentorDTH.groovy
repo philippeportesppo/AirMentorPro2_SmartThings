@@ -134,6 +134,9 @@ tiles(scale: 2) {
 
     standardTile("RealFeellevel", "device.RealFeellevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
             state "default",  label: 'Real Feel: ${currentValue}º', unit:"dC"}
+    standardTile("UGW_web", "device.UGW_web", width: 6, height: 2, canChangeIcon: false) {
+            state "default", label: 'Weather Underground', icon: "http://icons.wxug.com/graphics/wu2/logo_130x80.png"       }   
+    
                         
     standardTile("UGWtemperaturecallevel", "device.UGWtemperaturecallevel", width: 2, height: 2, canChangeIcon: false) {
             state "default", label: '${currentValue}', 
@@ -195,7 +198,7 @@ tiles(scale: 2) {
             [value: 200, color: "#5100a3"]]
    		}
 	main("iaq_main")
-	details(["iaqlevel","co2level","pm2_5level","pm10level","tvoclevel","temperaturecallevel","humiditylevel","EMClevel","RealFeellevel","dewpointlevel","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGW_Icon_UrlIcon","refresh" ])
+	details(["iaqlevel","co2level","pm2_5level","pm10level","tvoclevel","temperaturecallevel","humiditylevel","EMClevel","RealFeellevel","dewpointlevel","UGW_web","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGW_Icon_UrlIcon","refresh" ])
  	}
     
     

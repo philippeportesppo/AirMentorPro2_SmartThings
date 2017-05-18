@@ -68,13 +68,13 @@ class UnderGroundWeather:
             print "failure to retrieve"
             return -1
                 
-        def Send2Web(self):
-            payload = {}
-            print "Sending request..."
-            try:
-                requests.get("http://localhost/airmentorpro2.php?Action=set&UGW_FL="+str(self.feelslike_c)+"&UGW_DP="+str(self.dewpoint_c)+"&UGW_HUM="+str(self.relative_humidity)+"&UGW_TEM="+str(self.temp_c)+"&UGW_ICON="+str(self.icon_url), data=payload) 
-            except:
-                print "Couldn't send request..."
+    def Send2Web(self):
+        payload = {}
+        print "Sending request..."
+        try:
+            requests.get("http://localhost/airmentorpro2.php?Action=set&UGW_FL="+str(self.feelslike_c)+"&UGW_DP="+str(self.dewpoint_c)+"&UGW_HUM="+str(self.relative_humidity)+"&UGW_TEM="+str(self.temp_c)+"&UGW_ICON="+str(self.icon_url), data=payload) 
+        except:
+            print "Couldn't send request..."
 
 def main():
     underGroundWeather_key = sys.argv[1]

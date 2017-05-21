@@ -47,18 +47,6 @@ tiles(scale: 2) {
             [value: 200, color: "#5100a3"]]
    		}
         
-	/*standardTile("temperaturelevel", "device.temperaturelevel", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: '${currentValue}º', unit:"dC", 
-                  icon: "st.Weather.weather2", backgroundColors:[
-            [value: 10, color: "#153591"], 
-            [value: 15, color: "#1e9cbb"],
-            [value: 18, color: "#90d2a7"],
-            [value: 20, color: "#44b621"],
-            [value: 22, color: "#f1d801"],
-            [value: 25, color: "#d04e00"],
-            [value: 28, color: "#bc2323"]]
-        }*/
-        
 	standardTile("temperaturecallevel", "device.temperaturecallevel", width: 2, height: 2, canChangeIcon: false) {
             state "default", label: '${currentValue}º', unit:"dC", 
                   icon: "st.Weather.weather2", backgroundColors:[
@@ -121,10 +109,6 @@ tiles(scale: 2) {
             [value: 800, color: "#f70909"],
             [value: 1600, color: "#5100a3"]]
         }
-       // Battery is no longer supported in the broadcasting method. Needs to be in connected mode with the AirMentorPro
-       /*  standardTile ("battery", "device.battery", decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label:'${currentValue}'  
-            }*/
 
  	standardTile("dewpointlevel", "device.dewpointlevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
             state "default", label: 'Dew Point: ${currentValue}º', unit:"dC"}
@@ -178,7 +162,34 @@ tiles(scale: 2) {
                 state "Unknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/unknown.png",label: "Unknown"
                 state "Overcast",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/cloudy.png",label: "Overcast"
                 state "Scattered Clouds",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/partlycloudy.png",label: "Scattered Clouds"}
-           
+                state "NTChance of Flurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chanceflurries.png", label: "Chance of Flurries"	
+                state "NTChance of Rain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancerain.png",		label: "Chance of Rain"
+                state "NTChance Rain",		icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancerain.png",		label: "Chance Rain"
+                state "NTChance of Freezing Rain",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancesleet.png",label: "Chance of Freezing Rain"
+                state "NTChance of Sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancesleet.png",label: "Chance of Sleet"
+                state "NTChance of Snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancesnow.png",label: "Chance of Snow"
+                state "NTChance of a Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancetstorms.png",label: "Chance of a Thunderstorm"
+                state "NTChance of Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancetstorms.png",label: "Chance of Thunderstorm"
+                state "NTClear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_clear.png",label: "Clear"
+                state "NTCloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_cloudy.png",label: "Cloudy"
+                state "NTFlurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_flurries.png",label: "Flurries"
+                state "NTFog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_fog.png",label: "Fog"
+                state "NTHaze",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/nt_images/hazy.png",label: "Haze"
+                state "NTMostly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_mostlycloudy.png",label: "Mostly Cloudy"
+                state "NTMostly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_mostlysunny.png",label: "Mostly Sunny"
+                state "NTPartly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_partlycloudy.png",label: "Partly Cloudy"
+                state "NTPartly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_partlysunny.png",label: "Partly Sunny"
+                state "NTFreezing Rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_sleet.png",label: "Freezing Rain"
+                state "NTRain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_rain.png",label: "Rain"
+                state "NTSleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_sleet.png",label: "Sleet"
+                state "NTSnow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_snow.png",label: "Snow"
+                state "NTSunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_sunny.png",label: "Sunny"
+                state "NTThunderstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_tstorms.png",label: "Thunderstorms"
+                state "NTThunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_tstorms.png",label: "Thunderstorm"
+                state "NTUnknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/unknown.png",label: "Unknown"
+                state "NTOvercast",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_cloudy.png",label: "Overcast"
+                state "NTScattered Clouds",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_partlycloudy.png",label: "Scattered Clouds"}
+
             
             
     standardTile("refresh", "device.thermostatMode", decoration: "ring", width: 2, height: 2) {
@@ -259,7 +270,8 @@ def parse(description) {
         log.debug "UGW_Humidity:${html.body.table.tr[1].td[11].text()}"
         log.debug "UGW_Temp:${html.body.table.tr[1].td[12].text()}"
         log.debug "UGW_Icon_Url:${html.body.table.tr[1].td[13].text()}"
-        
+        log.debug "UGW_Icon_Night:${html.body.table.tr[1].td[14].text()}"
+
         def co2_int     = html.body.table.tr[1].td[0].text()
         def pm2_5_int   = html.body.table.tr[1].td[1].text()
         def pm10_int    = html.body.table.tr[1].td[2].text()
@@ -274,6 +286,7 @@ def parse(description) {
         def UGW_Humidity_float = html.body.table.tr[1].td[11].text()
         def UGW_Temp_float = html.body.table.tr[1].td[12].text() 
         def UGW_Icon_Url = html.body.table.tr[1].td[13].text()
+        def UGW_Icon_Nt =  html.body.table.tr[1].td[14].text()
 
 		// You can compute your own country IAQ based on local regulations.
   		// Or use the Air Mentor Pro 2 IAQ
@@ -354,7 +367,7 @@ def parse(description) {
         def UGW_DewPoint_event  =  createEvent(name: "UGWdewpointlevel", value: UGW_DewPoint_float.toString())
         def UGW_Humidity_event  =  createEvent(name: "UGWhumiditylevel", value: UGW_Humidity_float.toString())
        	def UGW_Temp_event      =  createEvent(name: "UGWtemperaturecallevel", value: UGW_Temp_float.toString() )  
-       	def UGW_Icon_UrlIcon_event      =  createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Url )
+       	def UGW_Icon_UrlIcon_event      =  createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Nt.toString()+UGW_Icon_Url.toString() )
         def alert_event=[]
  		log.debug "Generating alerts if not good"
         

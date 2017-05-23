@@ -1,4 +1,7 @@
 # AirMentorPro2_SmartThings
+
+<img src="https://github.com/philippeportesppo/AirMentorPro2_SmartThings/blob/master/overallsetup.png" alt="Overall Setup Icon" style="width:50%;height:50%;">
+
 What you need:
 
 Raspberry PI 3 with Apache2 and PHP5 installed properly<p></p>

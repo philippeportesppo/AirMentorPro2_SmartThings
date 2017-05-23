@@ -20,7 +20,8 @@
 		<td> UGW_DewPoint_C</td>
 		<td> UGW_Humidity</td>
 		<td> UGW_Temperature_C</td>
-		<td> UGW_Icon_Url</td>
+		<td> UGW_Weather</td>
+                <td> UGW_Icon_Nt</td>
 	</tr>
 	<tr>
 <?php
@@ -127,6 +128,14 @@ if (isset($_GET["Action"])) {
                         if (!isset($_SESSION["UGW_ICON"]))
 			    $_SESSION["UGW_ICON"]="na";
 		} 
+
+                if (isset($_GET["UGW_NT"])) {
+                        $_SESSION["UGW_NT"]=$_GET["UGW_NT"];}
+		else {
+			if (!isset($_SESSION["UGW_NT"]))
+			    $_SESSION["UGW_NT"]="na";
+		}
+
 	}
 	else
 	{
@@ -145,6 +154,7 @@ if (isset($_GET["Action"])) {
                 echo "<td>" . $_SESSION['UGW_HUM'] . "</td>";
                 echo "<td>" . $_SESSION['UGW_TEM'] . "</td>";
                 echo "<td>" . $_SESSION['UGW_ICON'] . "</td>";
+                echo "<td>" . $_SESSION['UGW_NT'] . "</td>";
 	}
 }
 ?>

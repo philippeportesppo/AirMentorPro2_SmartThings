@@ -11,7 +11,7 @@ Additional installation on Raspberry:<p></p>
   <li>requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p></li>
 Put in Raspberry /var/www/html folder the file : airmentorpro2.php<p></p>
 Put in /home/pi/Documents the python script airmentorpro2.py<p></p>
-You will launch this first python script by: <b>sudo /usr/bin/python /var/www/html/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b>Example: sudo /usr/bin/python /var/www/html/airmentorpro2.py fe:ed:fa:ce:be:ef 0 & <p></p>As this script runs an infinit loop, better to fork it with &<p></p>
+You will launch this first python script by: <b>sudo /usr/bin/python /var/www/html/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b><p></p>Example: sudo /usr/bin/python /var/www/html/airmentorpro2.py fe:ed:fa:ce:be:ef 0 & <p></p>As this script runs an infinit loop, better to fork it with &<p></p>
 Put in /home/pi/Documents the python script undergroundweather.py<p></p>
 This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/<p></p>The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on this GitHub.<p></p>
 <p></p> You will launche this script by: <b>sudo /usr/bin/python /var/www/html/undergroundweather.py [yourAPI key] [state] [city] &</b>

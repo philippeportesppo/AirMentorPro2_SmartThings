@@ -18,5 +18,5 @@ In Smartthing IDE: Create a Device Handler (then save and publish for yourself) 
 In Smartthing IDE: Create a SmartApp (then save and publish for yourself) from SmartApp.groovy. The Smartapp is here to allow the alerting on high and very high pollution. You can tweak the smartappto also get alerts on medium pollution.<p></p>
 Create a device in Smartthings web page based on this device handler. Put anything as Device Network Id as the Device Handler will overwrite it at first run. Don't ever change it after if your raspberry doesn't change its static IP address otherwise, the parse method is sent for some reason to the former device despite the HubAction is sent by the new instance...<p></p>
 Configure the Smarthing device with the IP, port of the Raspberry and URL of the webpage and self-refreshing regularly.You can also access the web page directly by a http://[yourraspberry IP]/airmentorpro2.php?Action=get<p></p>
-<b>IMPORTANT:</b> use pollster smartapp to candence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>
+<b>IMPORTANT:</b> use pollster smartapp to cadence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>
 Hope you like it.

@@ -121,14 +121,12 @@ tiles(scale: 2) {
             
     standardTile("UGW_web", "device.UGW_web",  width: 6, height: 3,  canChangeIcon: false ) {
             state "default", icon: "http://icons.wxug.com/graphics/wu2/logo_130x80.png"      }   
-    //standardTile("UGW_web", "device.UGW_web",  width: 6, height: 3) {
-            //state "none", label: 'My Chart to refresh', icon: "http://192.168.1.49/none.png"
-    //        state "default", icon: "http://192.168.1.49/chart.php"}
+   
     htmlTile(name:"GraphHTML",
                action: "getGraphHTML",
                width: 6,
                height: 4,
-               whitelist: ["http://192.168.1.49"])
+               whitelist: ["http://icons.wxug.com"])
             
     standardTile("UGWtemperaturecallevel", "device.UGWtemperaturecallevel", width: 2, height: 2, canChangeIcon: false) {
             state "default", label: '${currentValue}ºC', 
@@ -227,8 +225,6 @@ tiles(scale: 2) {
 mappings { 
 	path("/getGraphHTML") {action: [GET: "getGraphHTML"]} 
 } 
-
-
 
 
 def installed() {
@@ -394,7 +390,7 @@ def parse(description) {
         state.refreshCounter = state.refreshCounter + 1
         log.debug state.refreshCounter
 
-        def UGW_web_event =  createEvent(name: "GraphHTML", value: state.refreshCounter)
+        //def UGW_web_event =  createEvent(name: "GraphHTML", value: state.refreshCounter)
         //def UGW_web_event2 =  createEvent(name: "UGW_web", value: "http://192.168.1.49/chart.php")
         def alert_event=[]
  		log.debug "Generating alerts if not good"
@@ -537,7 +533,7 @@ renderHTML() {
         }
         body {
         """
-            <img src="http://192.168.1.49/chart.php" >
+            <img src="http://icons.wxug.com/graphics/wu2/logo_130x80.png" >
         """
         }
 	}

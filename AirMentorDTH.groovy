@@ -14,18 +14,7 @@
  *
  */
  
-preferences {
-    
-	section("Internal Access"){
-        input "internal_ip", "text", title: "Internal IP", required: true
-		input "internal_port", "text", title: "Internal Port (80)", required: true
-		input "internal_query_path", "text", title: "Internal query Path (/airmentorpro2.php?Action=get)", required: true
-		
-      }
-		
-}
-metadata {
-	definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", oauth: true) {
+definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", oauth: true) {
     	capability "refresh"
         capability "polling"  
 		capability "Carbon Dioxide Measurement"
@@ -34,10 +23,19 @@ metadata {
 
 }
 
+metadata {
 
+preferences {
+        section {
+            input "internal_ip", "text", title: "Internal IP", required: true
+            input "internal_port", "text", title: "Internal Port (80)", required: true
+            input "internal_query_path", "text", title: "Internal query Path (/airmentorpro2.php?Action=get)", required: true
+            }		
+        }
+    
 tiles(scale: 2) {
 
-    standardTile("iaqlevel", "device.iaqlevel", width: 6, height: 4, canChangeIcon: false) {
+    standardTile("iaqlevel", "device.iaqlevel", width: 6, height: 4, decoration: "flat",canChangeIcon: false) {
         state"default", label:'IAQ: '+'${currentValue}', wordWrap: false, backgroundColors:[
             [value: 0, color: "#153591"],
             [value: 1, color: "#1d9114"],
@@ -46,9 +44,9 @@ tiles(scale: 2) {
             [value: 150, color: "#f70909"],
             [value: 200, color: "#5100a3"]]
    		}
-        
-	standardTile("temperaturecallevel", "device.temperaturecallevel", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: '${currentValue}º', unit:"dC", 
+               
+	standardTile("temperaturecallevel", "device.temperaturecallevel", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+            state "default", label: '${currentValue}º',unit:'${currentValue}', 
                   icon: "st.Weather.weather2", backgroundColors:[
             [value: 10, color: "#153591"], 
             [value: 15, color: "#1e9cbb"],
@@ -59,7 +57,7 @@ tiles(scale: 2) {
             [value: 28, color: "#bc2323"]]
         }        
         
-	standardTile("humiditylevel", "device.humiditylevel", width: 2, height: 2, canChangeIcon: false) {
+	standardTile("humiditylevel", "device.humiditylevel", width: 2, height: 2) {
             state "default", label: '${currentValue}%', 
                   icon: "st.Weather.weather12", backgroundColors:[
             [value: 40, color: "#153591"],
@@ -70,18 +68,18 @@ tiles(scale: 2) {
             [value: 90, color: "#d04e00"],
             [value: 95, color: "#bc2323"]]
         }
-		standardTile("co2level", "device.co2level", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: 'CO2: '+'${currentValue}', 
-                  icon: "st.alarm.smoke.smoke", backgroundColors:[
+		standardTile("co2level", "device.co2level", width: 2, height: 2) {
+            state "default", label: '${currentValue}', 
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/CO2-Icon.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 800, color: "#f7f709"],
             [value: 1000, color: "#f7a709"],
             [value: 2500, color: "#f70909"]]
         }
-        standardTile("pm2_5level", "device.pm2_5level", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: 'PM2.5: '+'${currentValue}', 
-                  icon: "st.particulate.particulate.particulate", backgroundColors:[
+        standardTile("pm2_5level", "device.pm2_5level", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+            state "default", label: '${currentValue}', 
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/particulate_pm25.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 10, color: "#f7f709"],
@@ -89,9 +87,9 @@ tiles(scale: 2) {
             [value: 66, color: "#f70909"],
             [value: 150, color: "#5100a3"]]
         }
-        standardTile("pm10level", "device.pm10level", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: 'PM10: '+'${currentValue}', 
-                  icon: "st.particulate.particulate.particulate", backgroundColors:[
+        standardTile("pm10level", "device.pm10level", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+            state "default", label: '${currentValue}', 
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/particulate_pm10.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 55, color: "#f7f709"],
@@ -99,9 +97,9 @@ tiles(scale: 2) {
             [value: 255, color: "#f70909"],
             [value: 355, color: "#5100a3"]]
         }
-        standardTile("tvoclevel", "device.tvoclevel", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: 'TVOC: '+'${currentValue}', 
-                  icon: "st.particulate.particulate.particulate", backgroundColors:[
+        standardTile("tvoclevel", "device.tvoclevel", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+            state "default", label: '${currentValue}',unit:'ppm', 
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/TVOC-Icon.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 340, color: "#f7f709"],
@@ -110,31 +108,36 @@ tiles(scale: 2) {
             [value: 1600, color: "#5100a3"]]
         }
 
- 	standardTile("dewpointlevel", "device.dewpointlevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: 'Dew Point: ${currentValue}º', unit:"dC"}
+ 	standardTile("dewpointlevel", "device.dewpointlevel",  width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/dewpoint.png", backgroundColor:"#e5e9ea"}
             
-  	standardTile("EMClevel", "device.EMClevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
-            state "default",  label: 'EMC: ${currentValue}'}
+  	standardTile("EMClevel", "device.EMClevel",  width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+            state "default",  label: '${currentValue}%',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/EMC.png", backgroundColors:[
+            [value: 0, color: "#1d9114"],
+            [value: 4.5, color: "#1d9114"],
+            [value: 12.5, color: "#f7f709"],
+            [value: 16, color: "#f70909"]]
+            }
 
-    standardTile("RealFeellevel", "device.RealFeellevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
-            state "default",  label: 'Real Feel: ${currentValue}º', unit:"dC"}
-    standardTile("UGW_web", "device.UGW_web", width: 6, height: 2, canChangeIcon: false) {
-            state "default", label: 'Weather Underground', icon: "http://icons.wxug.com/graphics/wu2/logo_130x80.png"       }   
-    
-                        
-    standardTile("UGWtemperaturecallevel", "device.UGWtemperaturecallevel", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: '${currentValue}', 
-                  icon: "st.Weather.weather2"       }        
+    standardTile("RealFeellevel", "device.RealFeellevel",   width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/realfeel.png",backgroundColor:"#e5e9ea"}
+            
+    standardTile("UGW_web", "device.UGW_web",  width: 6, height: 3,  canChangeIcon: false ) {
+            state "default", icon: "http://icons.wxug.com/graphics/wu2/logo_130x80.png"      }   
+             
+    standardTile("UGWtemperaturecallevel", "device.UGWtemperaturecallevel", width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            state "default", label: '${currentValue}º',unit:'${currentValue}', icon: "st.Weather.weather2", backgroundColor:"#e5e9ea"}  
         
-	standardTile("UGWhumiditylevel", "device.UGWhumiditylevel", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: '${currentValue}', 
-                  icon: "st.Weather.weather12"      }
-	standardTile("UGWFeelsLikelevel", "device.UGWFeelsLikelevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
-            state "default",  label: 'Real Feel: ${currentValue}'}
+	standardTile("UGWhumiditylevel", "device.UGWhumiditylevel", width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            state "default", label: '${currentValue}', icon: "st.Weather.weather12", backgroundColor:"#e5e9ea"      }
+            
+	standardTile("UGWFeelsLikelevel", "device.UGWFeelsLikelevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/realfeel.png", backgroundColor:"#e5e9ea"}
 
-	standardTile("UGWdewpointlevel", "device.UGWdewpointlevel",  decoration:"flat", width: 2, height: 2, canChangeIcon: false) {
-            state "default", label: 'Dew Point: ${currentValue}'}
-    standardTile("UGW_Icon_UrlIcon", "device.UGW_Icon_UrlIcon",   width: 2, height: 2, canChangeIcon: false) {
+	standardTile("UGWdewpointlevel", "device.UGWdewpointlevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/dewpoint.png", backgroundColor:"#e5e9ea"}
+            
+    standardTile("UGW_Icon_UrlIcon", "device.UGW_Icon_UrlIcon", decoration: "flat",   width: 2, height: 2) {
                 state "Chance of Flurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chanceflurries.png", label: "Chance of Flurries"	
                 state "Chance of Rain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancerain.png",		label: "Chance of Rain"
                 state "Chance Rain",		icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancerain.png",		label: "Chance Rain"
@@ -161,7 +164,7 @@ tiles(scale: 2) {
                 state "Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/tstorms.png",label: "Thunderstorm"
                 state "Unknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/unknown.png",label: "Unknown"
                 state "Overcast",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/cloudy.png",label: "Overcast"
-                state "Scattered Clouds",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/partlycloudy.png",label: "Scattered Clouds"}
+                state "Scattered Clouds",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/partlycloudy.png",label: "Scattered Clouds"
                 state "NTChance of Flurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chanceflurries.png", label: "Chance of Flurries"	
                 state "NTChance of Rain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancerain.png",		label: "Chance of Rain"
                 state "NTChance Rain",		icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancerain.png",		label: "Chance Rain"
@@ -192,7 +195,9 @@ tiles(scale: 2) {
 
             
             
-    standardTile("refresh", "device.thermostatMode", decoration: "ring", width: 2, height: 2) {
+            
+            
+    standardTile("refresh", "device.refresh", decoration: "flat", width: 2, height: 2) {
  		state "default", action:"refresh", icon:"st.secondary.refresh"
  		} 
 	
@@ -211,11 +216,7 @@ tiles(scale: 2) {
 	details(["iaqlevel","co2level","pm2_5level","pm10level","tvoclevel","temperaturecallevel","humiditylevel","EMClevel","RealFeellevel","dewpointlevel","UGW_web","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGW_Icon_UrlIcon","refresh" ])
  	}
     
-    
-}
-
-
-
+}    
 
 
 def installed() {
@@ -224,11 +225,18 @@ def installed() {
 }
 
 def updated() {
+
 	log.debug "Executing 'updated'"
  	refresh()
-	log.debug "Executing 'updated'"
-	//schedule("0 0/3 * * * ?", refresh)
+}
 
+def initialize() {
+	state.refreshCounter = 0
+    state.requestCounter = 0
+    state.daylight=0
+    log.debug "state.requestCounter = 0"
+
+    log.debug "state.refreshCounter = 0"
 }
 
 
@@ -237,9 +245,20 @@ log.debug "Executing 'poll'"
     refresh()
 }
 
+String convertTemperature( float temperatureCelcius, unit)
+{
+	float value = temperatureCelcius
+    
+    if (unit =="F")
+    {
+       value = temperatureCelcius * 1.8 + 32.0
+    }
+    return value.toString().format(java.util.Locale.US,"%.1f", value)
+}
+
 def parse(description) {
 	log.debug "Executing 'parse'"
-    
+        
     if (state.requestCounter==0)
     	return null
 
@@ -271,7 +290,7 @@ def parse(description) {
         log.debug "UGW_Temp:${html.body.table.tr[1].td[12].text()}"
         log.debug "UGW_Icon_Url:${html.body.table.tr[1].td[13].text()}"
         log.debug "UGW_Icon_Night:${html.body.table.tr[1].td[14].text()}"
-
+        
         def co2_int     = html.body.table.tr[1].td[0].text()
         def pm2_5_int   = html.body.table.tr[1].td[1].text()
         def pm10_int    = html.body.table.tr[1].td[2].text()
@@ -314,15 +333,9 @@ def parse(description) {
             
         if (iaq_int == 'na')
             iaq_int = -1    
- /*
- 		if (battery_int != 'na')
-        	// No -1 for battery as the prompt would display it
-            if (battery_int.toInteger()>100)
-            	sendEvent(name: "battery", value: 'External power in')
-            else
-        		sendEvent(name: "battery", value:  battery_int.toString()+"% battery")
-*/
+
 		//log.debug "Generating events for UX refresh"
+        def temperatureScale = getTemperatureScale()
 
         def co2_event = createEvent(name: "co2level",     		value: co2_int.toString())
         def pm2_5_event = createEvent(name: "pm2_5level",       value: pm2_5_int.toString())
@@ -331,43 +344,42 @@ def parse(description) {
         def IAQ_event = createEvent(name: "iaqlevel",     		value: iaq_int.toString())
         def IAQ_main_event = createEvent(name: "iaq_main",       value: iaq_int.toString())
         
-		//def temp_event = createEvent(name: "temperaturelevel", 	value: temp_float.toString().format(java.util.Locale.US,"%.1f", temp_float.toFloat()))
-        def temp_cal_event = createEvent(name:"temperaturecallevel",  value: temp_cal_float.toString().format(java.util.Locale.US,"%.1f", temp_cal_float.toFloat()))
+        def temp_cal_event = createEvent(name:"temperaturecallevel",  value: convertTemperature(temp_cal_float.toFloat(),temperatureScale), unit: temperatureScale)
         def hum_event = createEvent(name: "humiditylevel", 	    value: humid_float.toString().format(java.util.Locale.US,"%.1f", humid_float.toFloat()))
 
 		// Environmental indicators
         
-        // Equilibrium Moisture Content Calculator
+        // Dew Point computation:
         // TD: =243.04*(LN(RH/100)+((17.625*T)/(243.04+T)))/(17.625-LN(RH/100)-((17.625*T)/(243.04+T)))
         // From http://andrew.rsmas.miami.edu/bmcnoldy/Humidity.html
-        def dew_point_value = 243.04*(Math.log(humid_float.toFloat()/100.0)+((17.625*temp_cal_float.toFloat())/(243.04+temp_cal_float.toFloat())))/(17.625-Math.log(humid_float.toFloat()/100.0)-((17.625*temp_cal_float.toFloat())/(243.04+temp_cal_float.toFloat()))) 
-		def dew_point_event =createEvent(name: "dewpointlevel", 	  value: dew_point_value.toString().format(java.util.Locale.US,"%.1f", dew_point_value.toFloat()))
+        float dew_point_value = 243.04*(Math.log(humid_float.toFloat()/100.0)+((17.625*temp_cal_float.toFloat())/(243.04+temp_cal_float.toFloat())))/(17.625-Math.log(humid_float.toFloat()/100.0)-((17.625*temp_cal_float.toFloat())/(243.04+temp_cal_float.toFloat()))) 
+		def dew_point_event =createEvent(name: "dewpointlevel", 	  value: convertTemperature(dew_point_value,temperatureScale), unit: temperatureScale)
 
- 	
+ 	    // Equilibrium Moisture Content Calculator
         def emc_W  =(349+(1.29*temp_cal_float.toFloat())+(0.0135*temp_cal_float.toFloat()*temp_cal_float.toFloat()))	
         def emc_k  = 0.805+(0.000736*temp_cal_float.toFloat())-(0.00000273*temp_cal_float.toFloat()*temp_cal_float.toFloat())	
         def emc_k1 = 6.27-(0.00938*temp_cal_float.toFloat())-(0.000303*temp_cal_float.toFloat()*temp_cal_float.toFloat())	
         def emc_k2 = 1.91+(0.0407*temp_cal_float.toFloat())-(0.000293*temp_cal_float.toFloat()*temp_cal_float.toFloat())
 		def emc_humid=humid_float.toFloat()/100
 		def EMC = (1800/emc_W)*(((emc_k*emc_humid)/(1-emc_k*emc_humid))+(((emc_k1*emc_k*emc_humid)+(2*emc_k1*emc_k2*emc_k*emc_k*emc_humid*emc_humid))/(1+(emc_k1*emc_k*emc_humid)+(emc_k1*emc_k2*emc_k*emc_k*emc_humid*emc_humid))))
-		def state_EMC="Good ("
-        if (EMC<4.5) 
-        	state_EMC="Too Low! ("
-        else if (EMC > 12.5)
-            state_EMC="Too High! ("
-        state_EMC=state_EMC+EMC.toString().format(java.util.Locale.US,"%.1f", EMC.toFloat())+"%)"
-        def EMC_event = createEvent(name: "EMClevel", value: state_EMC)
+        def EMC_event = createEvent(name: "EMClevel", value: EMC.toString().format(java.util.Locale.US,"%.1f", EMC.toFloat()))
 
 		// Real feel indoor temperature
-        def realfeel= temp_cal_float.toFloat()+0.348*emc_humid*6.105*Math.exp((17.27*temp_cal_float.toFloat())/(237.7+temp_cal_float.toFloat()))-4.25
-        def Indoor_Temp_event = createEvent(name: "RealFeellevel", value: realfeel.toString().format(java.util.Locale.US,"%.1f", realfeel.toFloat()))
+        float realfeel= temp_cal_float.toFloat()+0.348*emc_humid*6.105*Math.exp((17.27*temp_cal_float.toFloat())/(237.7+temp_cal_float.toFloat()))-4.25
+        def Indoor_Temp_event = createEvent(name: "RealFeellevel", value: convertTemperature(realfeel,temperatureScale), unit: temperatureScale)
  
  		// UnderGround Weather references
-       	def UGW_feelslike_event =  createEvent(name: "UGWFeelsLikelevel", value: UGW_feelslike_float.toString())
-        def UGW_DewPoint_event  =  createEvent(name: "UGWdewpointlevel", value: UGW_DewPoint_float.toString())
+       	def UGW_feelslike_event =  createEvent(name: "UGWFeelsLikelevel", value: convertTemperature(UGW_feelslike_float.toFloat(),temperatureScale), unit: temperatureScale)
+        def UGW_DewPoint_event  =  createEvent(name: "UGWdewpointlevel", value: convertTemperature(UGW_DewPoint_float.toFloat(),temperatureScale), unit: temperatureScale)
         def UGW_Humidity_event  =  createEvent(name: "UGWhumiditylevel", value: UGW_Humidity_float.toString())
-       	def UGW_Temp_event      =  createEvent(name: "UGWtemperaturecallevel", value: UGW_Temp_float.toString() )  
+       	def UGW_Temp_event      =  createEvent(name: "UGWtemperaturecallevel", value: convertTemperature(UGW_Temp_float.toFloat(),temperatureScale), unit: temperatureScale)
+        
        	def UGW_Icon_UrlIcon_event      =  createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Nt.toString()+UGW_Icon_Url.toString() )
+        
+        
+        state.refreshCounter = state.refreshCounter + 1
+        log.debug state.refreshCounter
+
         def alert_event=[]
  		log.debug "Generating alerts if not good"
         
@@ -392,7 +404,7 @@ def parse(description) {
         if (map) {
 			alert_event = alert_event+createEvent(map)
 		}
-        return alert_event+[co2_event,pm2_5_event,pm10_event, tvoc_event, IAQ_event, IAQ_main_event, dew_point_event, temp_cal_event, hum_event, EMC_event, Indoor_Temp_event, UGW_feelslike_event, UGW_DewPoint_event, UGW_Humidity_event, UGW_Temp_event, UGW_Icon_UrlIcon_event]     
+        return alert_event+[co2_event,pm2_5_event,pm10_event, tvoc_event, IAQ_event, IAQ_main_event, dew_point_event, temp_cal_event, hum_event, EMC_event, Indoor_Temp_event, UGW_feelslike_event, UGW_DewPoint_event, UGW_Humidity_event, UGW_Temp_event, UGW_Icon_UrlIcon_event, UGW_web_event] //,UGW_web_event2]     
 		
         
 	}
@@ -500,3 +512,5 @@ def refresh() {
     
 }
 
+
+            

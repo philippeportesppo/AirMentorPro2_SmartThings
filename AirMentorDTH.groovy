@@ -204,7 +204,7 @@ tiles(scale: 2) {
     
     // Only used for things view in order to display a nice icon (I didn't ask permission to use it, so you can replace by what you like).
     standardTile("iaq_main", "device.iaq_main") 
-    	{state "default", label:'${currentValue}', icon:"http://www.air-mentor.com/static/www/en/img/app-icon.png", backgroundColors:[
+    	{state "default", label:'${currentValue}', icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/app-icon_bw.png" /*icon:"http://www.air-mentor.com/static/www/en/img/app-icon.png"*/, backgroundColors:[
             [value: 0, color: "#153591"],
             [value: 1, color: "#1d9114"],
             [value: 51, color: "#f7f709"],

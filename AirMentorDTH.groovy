@@ -227,6 +227,7 @@ def installed() {
 def updated() {
 
 	log.debug "Executing 'updated'"
+	initialize()
  	refresh()
 }
 

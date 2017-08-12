@@ -70,7 +70,7 @@ tiles(scale: 2) {
         }
 		standardTile("co2level", "device.co2level", width: 2, height: 2) {
             state "default", label: '${currentValue}', 
-                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/CO2-Icon.png", backgroundColors:[
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/CO2-Icon.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 800, color: "#f7f709"],
@@ -79,7 +79,7 @@ tiles(scale: 2) {
         }
         standardTile("pm2_5level", "device.pm2_5level", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
             state "default", label: '${currentValue}', 
-                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/particulate_pm25.png", backgroundColors:[
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/particulate_pm25.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 10, color: "#f7f709"],
@@ -89,7 +89,8 @@ tiles(scale: 2) {
         }
         standardTile("pm10level", "device.pm10level", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
             state "default", label: '${currentValue}', 
-                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/particulate_pm10.png", backgroundColors:[
+                  //icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/tstorms.png", backgroundColors:[
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/particulate_pm10.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 55, color: "#f7f709"],
@@ -99,7 +100,7 @@ tiles(scale: 2) {
         }
         standardTile("tvoclevel", "device.tvoclevel", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
             state "default", label: '${currentValue}',unit:'ppm', 
-                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/TVOC-Icon.png", backgroundColors:[
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/TVOC-Icon.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 340, color: "#f7f709"],
@@ -109,10 +110,10 @@ tiles(scale: 2) {
         }
 
  	standardTile("dewpointlevel", "device.dewpointlevel",  width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
-            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/dewpoint.png", backgroundColor:"#e5e9ea"}
+            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/dewpoint.png", backgroundColor:"#e5e9ea"}
             
   	standardTile("EMClevel", "device.EMClevel",  width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
-            state "default",  label: '${currentValue}%',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/EMC.png", backgroundColors:[
+            state "default",  label: '${currentValue}%',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/EMC.png", backgroundColors:[
             [value: 0, color: "#1d9114"],
             [value: 4.5, color: "#1d9114"],
             [value: 12.5, color: "#f7f709"],
@@ -120,7 +121,7 @@ tiles(scale: 2) {
             }
 
     standardTile("RealFeellevel", "device.RealFeellevel",   width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/realfeel.png",backgroundColor:"#e5e9ea"}
+            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png",backgroundColor:"#e5e9ea"}
             
     standardTile("UGW_web", "device.UGW_web",  width: 6, height: 3,  canChangeIcon: false ) {
             state "default", icon: "http://icons.wxug.com/graphics/wu2/logo_130x80.png"      }   
@@ -132,66 +133,66 @@ tiles(scale: 2) {
             state "default", label: '${currentValue}', icon: "st.Weather.weather12", backgroundColor:"#e5e9ea"      }
             
 	standardTile("UGWFeelsLikelevel", "device.UGWFeelsLikelevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/realfeel.png", backgroundColor:"#e5e9ea"}
+            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png", backgroundColor:"#e5e9ea"}
 
 	standardTile("UGWdewpointlevel", "device.UGWdewpointlevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/dewpoint.png", backgroundColor:"#e5e9ea"}
+            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/dewpoint.png", backgroundColor:"#e5e9ea"}
             
     standardTile("UGW_Icon_UrlIcon", "device.UGW_Icon_UrlIcon", decoration: "flat",   width: 2, height: 2) {
-                state "Chance of Flurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chanceflurries.png", label: "Chance of Flurries"	
-                state "Chance of Rain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancerain.png",		label: "Chance of Rain"
-                state "Chance Rain",		icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancerain.png",		label: "Chance Rain"
-                state "Chance of Freezing Rain",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancesleet.png",label: "Chance of Freezing Rain"
-                state "Chance of Sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancesleet.png",label: "Chance of Sleet"
-                state "Chance of Snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancesnow.png",label: "Chance of Snow"
-                state "Chance of a Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancetstorms.png",label: "Chance of a Thunderstorm"
-                state "Chance of Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/chancetstorms.png",label: "Chance of Thunderstorm"
-                state "Clear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/clear.png",label: "Clear"
-                state "Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/cloudy.png",label: "Cloudy"
-                state "Flurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/flurries.png",label: "Flurries"
-                state "Fog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/fog.png",label: "Fog"
-                state "Haze",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/hazy.png",label: "Haze"
-                state "Mostly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/mostlycloudy.png",label: "Mostly Cloudy"
-                state "Mostly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/mostlysunny.png",label: "Mostly Sunny"
-                state "Partly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/partlycloudy.png",label: "Partly Cloudy"
-                state "Partly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/partlysunny.png",label: "Partly Sunny"
-                state "Freezing Rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/sleet.png",label: "Freezing Rain"
-                state "Rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/rain.png",label: "Rain"
-                state "Sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/sleet.png",label: "Sleet"
-                state "Snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/snow.png",label: "Snow"
-                state "Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/sunny.png",label: "Sunny"
-                state "Thunderstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/tstorms.png",label: "Thunderstorms"
-                state "Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/tstorms.png",label: "Thunderstorm"
-                state "Unknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/unknown.png",label: "Unknown"
-                state "Overcast",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/cloudy.png",label: "Overcast"
-                state "Scattered Clouds",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/partlycloudy.png",label: "Scattered Clouds"
-                state "NTChance of Flurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chanceflurries.png", label: "Chance of Flurries"	
-                state "NTChance of Rain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancerain.png",		label: "Chance of Rain"
-                state "NTChance Rain",		icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancerain.png",		label: "Chance Rain"
-                state "NTChance of Freezing Rain",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancesleet.png",label: "Chance of Freezing Rain"
-                state "NTChance of Sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancesleet.png",label: "Chance of Sleet"
-                state "NTChance of Snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancesnow.png",label: "Chance of Snow"
-                state "NTChance of a Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancetstorms.png",label: "Chance of a Thunderstorm"
-                state "NTChance of Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_chancetstorms.png",label: "Chance of Thunderstorm"
-                state "NTClear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_clear.png",label: "Clear"
-                state "NTCloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_cloudy.png",label: "Cloudy"
-                state "NTFlurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_flurries.png",label: "Flurries"
-                state "NTFog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_fog.png",label: "Fog"
-                state "NTHaze",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/nt_images/hazy.png",label: "Haze"
-                state "NTMostly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_mostlycloudy.png",label: "Mostly Cloudy"
-                state "NTMostly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_mostlysunny.png",label: "Mostly Sunny"
-                state "NTPartly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_partlycloudy.png",label: "Partly Cloudy"
-                state "NTPartly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_partlysunny.png",label: "Partly Sunny"
-                state "NTFreezing Rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_sleet.png",label: "Freezing Rain"
-                state "NTRain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_rain.png",label: "Rain"
-                state "NTSleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_sleet.png",label: "Sleet"
-                state "NTSnow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_snow.png",label: "Snow"
-                state "NTSunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_sunny.png",label: "Sunny"
-                state "NTThunderstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_tstorms.png",label: "Thunderstorms"
-                state "NTThunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_tstorms.png",label: "Thunderstorm"
-                state "NTUnknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/unknown.png",label: "Unknown"
-                state "NTOvercast",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_cloudy.png",label: "Overcast"
-                state "NTScattered Clouds",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/workaround_icons_png/images/nt_partlycloudy.png",label: "Scattered Clouds"}
+                state "Chance of Flurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chanceflurries.png", label: "Chance of Flurries"	
+                state "Chance of Rain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancerain.png",		label: "Chance of Rain"
+                state "Chance Rain",		icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancerain.png",		label: "Chance Rain"
+                state "Chance of Freezing Rain",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancesleet.png",label: "Chance of Freezing Rain"
+                state "Chance of Sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancesleet.png",label: "Chance of Sleet"
+                state "Chance of Snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancesnow.png",label: "Chance of Snow"
+                state "Chance of a Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancetstorms.png",label: "Chance of a Thunderstorm"
+                state "Chance of Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancetstorms.png",label: "Chance of Thunderstorm"
+                state "Clear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/clear.png",label: "Clear"
+                state "Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/cloudy.png",label: "Cloudy"
+                state "Flurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/flurries.png",label: "Flurries"
+                state "Fog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/fog.png",label: "Fog"
+                state "Haze",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/hazy.png",label: "Haze"
+                state "Mostly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/mostlycloudy.png",label: "Mostly Cloudy"
+                state "Mostly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/mostlysunny.png",label: "Mostly Sunny"
+                state "Partly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/partlycloudy.png",label: "Partly Cloudy"
+                state "Partly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/partlysunny.png",label: "Partly Sunny"
+                state "Freezing Rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/sleet.png",label: "Freezing Rain"
+                state "Rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/rain.png",label: "Rain"
+                state "Sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/sleet.png",label: "Sleet"
+                state "Snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/snow.png",label: "Snow"
+                state "Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/sunny.png",label: "Sunny"
+                state "Thunderstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/tstorms.png",label: "Thunderstorms"
+                state "Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/tstorms.png",label: "Thunderstorm"
+                state "Unknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/unknown.png",label: "Unknown"
+                state "Overcast",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/cloudy.png",label: "Overcast"
+                state "Scattered Clouds",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/partlycloudy.png",label: "Scattered Clouds"
+                state "NTChance of Flurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chanceflurries.png", label: "Chance of Flurries"	
+                state "NTChance of Rain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/nt_chancerain.png",		label: "Chance of Rain"
+                state "NTChance Rain",		icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancerain.png",		label: "Chance Rain"
+                state "NTChance of Freezing Rain",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesleet.png",label: "Chance of Freezing Rain"
+                state "NTChance of Sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesleet.png",label: "Chance of Sleet"
+                state "NTChance of Snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesnow.png",label: "Chance of Snow"
+                state "NTChance of a Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancetstorms.png",label: "Chance of a Thunderstorm"
+                state "NTChance of Thunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancetstorms.png",label: "Chance of Thunderstorm"
+                state "NTClear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_clear.png",label: "Clear"
+                state "NTCloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_cloudy.png",label: "Cloudy"
+                state "NTFlurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_flurries.png",label: "Flurries"
+                state "NTFog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/nt_fog.png",label: "Fog"
+                state "NTHaze",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/nt_images/hazy.png",label: "Haze"
+                state "NTMostly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_mostlycloudy.png",label: "Mostly Cloudy"
+                state "NTMostly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_mostlysunny.png",label: "Mostly Sunny"
+                state "NTPartly Cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_partlycloudy.png",label: "Partly Cloudy"
+                state "NTPartly Sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_partlysunny.png",label: "Partly Sunny"
+                state "NTFreezing Rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_sleet.png",label: "Freezing Rain"
+                state "NTRain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_rain.png",label: "Rain"
+                state "NTSleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_sleet.png",label: "Sleet"
+                state "NTSnow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_snow.png",label: "Snow"
+                state "NTSunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_sunny.png",label: "Sunny"
+                state "NTThunderstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_tstorms.png",label: "Thunderstorms"
+                state "NTThunderstorm",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_tstorms.png",label: "Thunderstorm"
+                state "NTUnknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/unknown.png",label: "Unknown"
+                state "NTOvercast",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_cloudy.png",label: "Overcast"
+                state "NTScattered Clouds",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_partlycloudy.png",label: "Scattered Clouds"}
 
             
             
@@ -204,7 +205,7 @@ tiles(scale: 2) {
     
     // Only used for things view in order to display a nice icon (I didn't ask permission to use it, so you can replace by what you like).
     standardTile("iaq_main", "device.iaq_main") 
-    	{state "default", label:'${currentValue}', icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/app-icon_bw.png" /*icon:"http://www.air-mentor.com/static/www/en/img/app-icon.png"*/, backgroundColors:[
+    	{state "default", label:'${currentValue}', icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/app-icon_bw.png" /*icon:"http://www.air-mentor.com/static/www/en/img/app-icon.png"*/, backgroundColors:[
             [value: 0, color: "#153591"],
             [value: 1, color: "#1d9114"],
             [value: 51, color: "#f7f709"],
@@ -227,7 +228,6 @@ def installed() {
 def updated() {
 
 	log.debug "Executing 'updated'"
-	initialize()
  	refresh()
 }
 

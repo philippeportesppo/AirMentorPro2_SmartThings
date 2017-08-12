@@ -1,4 +1,7 @@
 # AirMentorPro2_SmartThings
+
+<img src="https://github.com/philippeportesppo/AirMentorPro2_SmartThings/blob/master/overallsetup.png" alt="Overall Setup Icon" style="width:50%;height:50%;">
+
 What you need:
 
 Raspberry PI 3 with Apache2 and PHP5 installed properly<p></p>
@@ -9,14 +12,16 @@ Additional installation on Raspberry:<p></p>
   <li>Bluez (http://www.elinux.org/RPi_Bluetooth_LE)<p></p></li>
   <li>BluePy (https://github.com/IanHarvey/bluepy)<p></p></li>
   <li>requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p></li>
-Put in Raspberry /var/www/html folder the file : airmentorpro2.php airmentorpro2.php<p></p>
-Put in /home/pi/Documents the python script airmentorpro2.pyYou will launch this first python script by: <b>sudo /usr/bin/python /var/www/html/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b> <p></p>As this script runs an infinit loop, better to fork it with &<p></p>
-Put in /home/pi/Documents the python script undergroundweather.py   This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/  The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on my GitHub.<p></p>
+Put in Raspberry /var/www/html folder the file : airmentorpro2.php<p></p>
+Put in /home/pi/Documents the python script airmentorpro2.py<p></p>
+You will launch this first python script by: <b>sudo /usr/bin/python /var/www/html/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b><p></p>Example: sudo /usr/bin/python /var/www/html/airmentorpro2.py fe:ed:fa:ce:be:ef 0 & <p></p>As this script runs an infinit loop, better to fork it with &<p></p>
+Put in /home/pi/Documents the python script undergroundweather.py<p></p>
+This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/<p></p>The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on this GitHub.<p></p>
 <p></p> You will launche this script by: <b>sudo /usr/bin/python /var/www/html/undergroundweather.py [yourAPI key] [state] [city] &</b>
 <p>As this script runs an infinit loop, better to fork it with & too</p>
 In Smartthing IDE: Create a Device Handler (then save and publish for yourself) from AirMentorDTH.groovy <p></p>
 In Smartthing IDE: Create a SmartApp (then save and publish for yourself) from SmartApp.groovy. The Smartapp is here to allow the alerting on high and very high pollution. You can tweak the smartappto also get alerts on medium pollution.<p></p>
 Create a device in Smartthings web page based on this device handler. Put anything as Device Network Id as the Device Handler will overwrite it at first run. Don't ever change it after if your raspberry doesn't change its static IP address otherwise, the parse method is sent for some reason to the former device despite the HubAction is sent by the new instance...<p></p>
 Configure the Smarthing device with the IP, port of the Raspberry and URL of the webpage and self-refreshing regularly.You can also access the web page directly by a http://[yourraspberry IP]/airmentorpro2.php?Action=get<p></p>
-<b>IMPORTANT:</b> use pollster smartapp to candence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>
+<b>IMPORTANT:</b> use pollster smartapp to cadence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>
 Hope you like it.

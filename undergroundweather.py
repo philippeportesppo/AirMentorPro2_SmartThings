@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# 
+#
 # Philippe Portes February 2017 based
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,9 +31,10 @@ class UnderGroundWeather:
         self.relative_humidity=0
         self.temp_c=0
         self.icon_url=0
-	self.icon_nt=0
+        self.icon_nt=0
+        self.weather=0
     def CheckWeather(self):
-        
+
         serviceUrl = 'http://api.wunderground.com/api/'+self.key+'/conditions/q/'+self.state+'/'+self.city+'.json'
         #print 'Retrieving', serviceUrl
         uh = urllib.urlopen(serviceUrl)
@@ -42,7 +43,7 @@ class UnderGroundWeather:
             #print "============"
             #print "data: ",data
             if self.Parse(data)==0:
-                
+
                 try:
                     #print "Sending to php..."
                     self.Send2Web()
@@ -54,14 +55,15 @@ class UnderGroundWeather:
             return -1
     def Parse(self,data):
         #print "Parsing:", data
-        try: 
+        try:
             info = json.loads(str(data))
             print(info)
             self.feelslike_c      =info[u'current_observation'][u'feelslike_c']
             self.dewpoint_c       =info[u'current_observation'][u'dewpoint_c']
             self.relative_humidity=info[u'current_observation'][u'relative_humidity']
             self.temp_c           =info[u'current_observation'][u'temp_c']
-            self.icon_url         =info[u'current_observation'][u'weather']
+            self.icon_url         =info[u'current_observation'][u'icon']
+            self.weather          =info[u'current_observation'][u'weather']
             self.icon_nt          ="NT" if info[u'current_observation'][u'icon_url'][28:31]=="nt_" else ""
             print self.feelslike_c
             print self.dewpoint_c
@@ -69,32 +71,33 @@ class UnderGroundWeather:
             print self.temp_c
             print self.icon_url
             print self.icon_nt
+            print self.weather
             return 0
-        except: 
+        except:
             info=None
         if info==None:
             print "failure to retrieve"
             return -1
-                
+
     def Send2Web(self):
         payload = {}
         #print "Sending request..."
         try:
-            requests.get("http://localhost/airmentorpro2.php?Action=set&UGW_FL="+str(self.feelslike_c)+"&UGW_DP="+str(self.dewpoint_c)+"&UGW_HUM="+str(self.relative_humidity)+"&UGW_TEM="+str(self.temp_c)+"&UGW_ICON="+str(self.icon_url)+"&UGW_NT="+str(self.icon_nt), data=payload) 
-        except: 
+            requests.get("http://localhost/airmentorpro2.php?Action=set&UGW_FL="+str(self.feelslike_c)+"&UGW_DP="+str(self.dewpoint_c)+"&UGW_HUM="+str(self.relative_humidity)+"&UGW_TEM="+str(self.temp_c)+"&UGW_ICON="+str(self.icon_url)+"&UGW_NT="+str(self.icon_nt)+"&UGW_WEATHER="+str(self.weather), data=payload)
+        except:
             print "Couldn't send request..."
 
 def main():
     underGroundWeather_key = sys.argv[1]
     underGroundWeather_state = sys.argv[2]
     underGroundWeather_city = sys.argv[3]
-    
+
     while True:
-        try:   
+        try:
             UGW=UnderGroundWeather(underGroundWeather_key,underGroundWeather_state,underGroundWeather_city )
             UGW.CheckWeather()
-            
-            time.sleep(5*60) # delays for 5 minutes to stay in free plans provided by underGroundWeather   
+
+            time.sleep(5*60) # delays for 5 minutes to stay in free plans provided by underGroundWeather
         except:
             pass
 

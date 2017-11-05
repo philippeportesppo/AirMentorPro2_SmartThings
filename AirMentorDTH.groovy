@@ -36,8 +36,8 @@ preferences {
     
 tiles(scale: 2) {
 
-    standardTile("iaqlevel", "device.iaqlevel", width: 6, height: 4, decoration: "flat",canChangeIcon: false) {
-        state"default", label:'IAQ: '+'${currentValue}', wordWrap: false, backgroundColors:[
+    standardTile("iaqlevel", "device.iaqlevel", width: 6, height: 3) {
+        state"default", label:'${currentValue}', wordWrap: false, icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/app-icon_bw_iaq.png", backgroundColors:[
             [value: 0, color: "#153591"],
             [value: 1, color: "#1d9114"],
             [value: 51, color: "#f7f709"],
@@ -45,6 +45,9 @@ tiles(scale: 2) {
             [value: 150, color: "#f70909"],
             [value: 200, color: "#5100a3"]]
    		}
+               
+               
+               
                
 	standardTile("temperaturecallevel", "device.temperaturecallevel", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
             state "default", label: '${currentValue}º',unit:'${currentValue}', 
@@ -69,7 +72,7 @@ tiles(scale: 2) {
             [value: 90, color: "#d04e00"],
             [value: 95, color: "#bc2323"]]
         }
-		standardTile("co2level", "device.co2level", width: 2, height: 2) {
+		standardTile("co2level", "device.co2level", width: 2, height: 2,decoration: "flat") {
             state "default", label: '${currentValue}', 
                   icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/CO2-Icon.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
@@ -179,10 +182,6 @@ tiles(scale: 2) {
                 state "nt_sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_sunny.png"
                 state "nt_tstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_tstorms.png"
 	}
-
-            
-            
-            
             
     standardTile("refresh", "device.refresh", decoration: "flat", width: 2, height: 2) {
  		state "default", action:"refresh", icon:"st.secondary.refresh"
@@ -192,8 +191,8 @@ tiles(scale: 2) {
  		state "default", label:'${currentValue}'
  		} 
     // Only used for things view in order to display a nice icon (I didn't ask permission to use it, so you can replace by what you like).
-    standardTile("iaq_main", "device.iaq_main") 
-    	{state "default", label:'${currentValue}', icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/app-icon_bw.png" /*icon:"http://www.air-mentor.com/static/www/en/img/app-icon.png"*/, backgroundColors:[
+    standardTile("iaq_main", "device.iaq_main", decoration: "flat", width: 6, height: 4) 
+    	{state "default", label:'${currentValue}', icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/app-icon_bw_iaq.png", backgroundColors:[
             [value: 0, color: "#153591"],
             [value: 1, color: "#1d9114"],
             [value: 51, color: "#f7f709"],

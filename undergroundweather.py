@@ -64,7 +64,7 @@ class UnderGroundWeather:
             self.temp_c           =info[u'current_observation'][u'temp_c']
             self.icon_url         =info[u'current_observation'][u'icon']
             self.weather          =info[u'current_observation'][u'weather']
-            self.icon_nt          ="NT" if info[u'current_observation'][u'icon_url'][28:31]=="nt_" else ""
+            self.icon_nt          ="nt_" if info[u'current_observation'][u'icon_url'][28:31]=="nt_" else ""
             print self.feelslike_c
             print self.dewpoint_c
             print self.relative_humidity

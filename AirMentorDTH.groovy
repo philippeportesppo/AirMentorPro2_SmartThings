@@ -362,7 +362,7 @@ def parse(description) {
         events <<   createEvent(name: "UGWdewpointlevel", value: convertTemperature(UGW_DewPoint_float.toFloat(),temperatureScale), unit: temperatureScale)
         events <<   createEvent(name: "UGWhumiditylevel", value: UGW_Humidity_float.toString())
        	events <<   createEvent(name: "UGWtemperaturecallevel", value: convertTemperature(UGW_Temp_float.toFloat(),temperatureScale), unit: temperatureScale)
-       	events <<   createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Url.toString())
+       	events <<   createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Nt.toString()+UGW_Icon_Url.toString())
        
         
         

@@ -74,7 +74,7 @@ tiles(scale: 2) {
         }
 		standardTile("co2level", "device.co2level", width: 2, height: 2,decoration: "flat") {
             state "default", label: '${currentValue}', 
-                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/CO2-Icon.png", backgroundColors:[
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/CO2-Icon.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 800, color: "#f7f709"],
@@ -83,7 +83,7 @@ tiles(scale: 2) {
         }
         standardTile("pm2_5level", "device.pm2_5level", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
             state "default", label: '${currentValue}', 
-                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/particulate_pm25.png", backgroundColors:[
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/particulate_pm25.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 10, color: "#f7f709"],
@@ -93,8 +93,7 @@ tiles(scale: 2) {
         }
         standardTile("pm10level", "device.pm10level", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
             state "default", label: '${currentValue}', 
-                  //icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/new_icons/images/tstorms.png", backgroundColors:[
-                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/particulate_pm10.png", backgroundColors:[
+                  icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/particulate_pm10.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
             [value: 0, color: "#1d9114"],
             [value: 55, color: "#f7f709"],
@@ -192,7 +191,7 @@ tiles(scale: 2) {
  		} 
     // Only used for things view in order to display a nice icon (I didn't ask permission to use it, so you can replace by what you like).
     standardTile("iaq_main", "device.iaq_main", decoration: "flat", width: 6, height: 4) 
-    	{state "default", label:'${currentValue}', icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/app-icon_bw_iaq.png", backgroundColors:[
+    	{state "default", label:'${currentValue}', icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/app-icon_bw.png", backgroundColors:[
             [value: 0, color: "#153591"],
             [value: 1, color: "#1d9114"],
             [value: 51, color: "#f7f709"],

@@ -168,14 +168,14 @@ tiles(scale: 2) {
                 state "tstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/tstorms.png"
                 state "unknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/unknown.png"
                 state "nt_chanceflurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chanceflurries.png"	
-                state "nt_chancerain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/nt_chancerain.png"
+                state "nt_chancerain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancerain.png"
                 state "nt_chancesleet",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesleet.png"
                 state "nt_chancesnow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesnow.png"
                 state "nt_chancetstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancetstorms.png"
                 state "nt_clear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_clear.png"
                 state "nt_cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_cloudy.png"
                 state "nt_flurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_flurries.png"
-                state "nt_fog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/nt_fog.png"
+                state "nt_fog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_fog.png"
                 state "nt_hazy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_hazy.png"
                 state "nt_mostlycloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_mostlycloudy.png"
                 state "nt_mostlysunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_mostlysunny.png"
@@ -222,16 +222,19 @@ def installed() {
 def updated() {
 
 	log.debug "Executing 'updated'"
+
  	refresh()
 }
 
 def initialize() {
-	state.refreshCounter = 0
+	state.IAQ_event = ""
+    state.CO2_event = ""
+    state.PM25_event= ""
+    state.PM10_event= ""
+    state.TVOC_event= ""
     state.requestCounter = 0
-    state.daylight=0
-    log.debug "state.requestCounter = 0"
+    log.debug "state events initialized..."
 
-    log.debug "state.refreshCounter = 0"
 }
 
 
@@ -376,31 +379,40 @@ def parse(description) {
         state.refreshCounter = state.refreshCounter + 1
         log.debug state.refreshCounter
 
-        
  		log.debug "Generating alerts if not good"
         
-        def map = generate_app_event( "IAQ",iaq_int.toInteger(), 50, 100,150, 200)
+        def map = generate_app_event( "IAQ",iaq_int.toInteger(), state.IAQ_event, 50, 100,150, 200)
+
         if (map) {
 			events << createEvent(map)
-		}
-	 
-        map = generate_app_event( "CO2",co2_int.toInteger(), 800, 1200,2000, 5000)
-        if (map) {
-			events << createEvent(map)
-		}
-        map = generate_app_event( "PM2_5",pm2_5_int.toInteger(), 15, 40, 65, 105)
-        if (map) {
-			events <<  createEvent(map)
-		}
-        map = generate_app_event( "PM10",pm10_int.toInteger(), 55, 155, 255, 355)
-        if (map) {
-			events <<  createEvent(map)
-		}
-        map = generate_app_event( "TVOC",tvoc_int.toInteger(), 312, 560, 1000, 3000)
-        if (map) {
-			events <<  createEvent(map)
+            state.IAQ_event = map.descriptionText
 		}
 
+	      
+        map = generate_app_event( "CO2",co2_int.toInteger(), state.CO2_event, 800, 1200,2000, 5000)
+        if (map) {
+			events << createEvent(map)
+            state.CO2_event = map.descriptionText
+		}
+        
+        map = generate_app_event( "PM2_5",pm2_5_int.toInteger(), state.PM25_event, 15, 40, 65, 105)
+        if (map) {
+			events <<  createEvent(map)
+            state.PM25_event = map.descriptionText
+		}
+
+        map = generate_app_event( "PM10",pm10_int.toInteger(), state.PM10_event, 55, 155, 255, 355)
+        if (map) {
+			events <<  createEvent(map)
+            state.PM10_event=map.descriptionText
+		}
+
+        map = generate_app_event( "TVOC",tvoc_int.toInteger(), state.TVOC_event, 312, 560, 1000, 3000)
+        if (map) {
+			events <<  createEvent(map)
+            state.TVOC_event=map.descriptionText
+		}
+		
         events << createEvent( name:"weather", value: html.body.table.tr[1].td[15].text(), display:true, isStateChange: true)
 
 	}
@@ -408,7 +420,7 @@ def parse(description) {
     return events
 }
 
-private generate_app_event( name_, int value_, int thres_moderate, int thres_unhealthy_sensitive, int thres_unhealthy, int thres_very_unhealty)
+private generate_app_event( name_, int value_, previous, int thres_moderate, int thres_unhealthy_sensitive, int thres_unhealthy, int thres_very_unhealty)
 {
   def map = [:] 
   def fire_event = false
@@ -440,15 +452,21 @@ private generate_app_event( name_, int value_, int thres_moderate, int thres_unh
   		map.value="moderate"
         map.descriptionText="${name_} alert: ${map.value}"
 
-        fire_event=false
+        fire_event=true
     }
   else
   	{
   		map.value="good"
         map.descriptionText="${name_} alert: ${map.value}"
 		// change to true if want to be notified of good measures
-        fire_event=false
-    }   
+        fire_event=true
+    }
+    
+  if (previous == map.descriptionText )
+  {
+  	fire_event=false
+  }
+    
   if (fire_event)
   	{
     	log.debug("Generated alert for : ${name_} ${map.value}")
@@ -512,4 +530,3 @@ def refresh() {
 
 
             
-

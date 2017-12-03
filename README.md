@@ -21,7 +21,7 @@ This requires you to get a Weather UnderGround API key from https://www.wundergr
 <p>As this script runs an infinit loop, better to fork it with & too</p>
 In Smartthings IDE: Create a Device Handler (then save and publish for yourself) from air-mentor-pro-2.groovy <p></p>
 In Smartthings IDE: Create a SmartApp (then save and publish for yourself) from SmartApp.groovy. The Smartapp is here to allow the alerting on pollution level and polluant. This is an optional app, if you don't want to be notified, you can ignore it.<p>
-In Smartthings ID: Create a SmartApp (then save and publish for yourself) from iaq-vent.groovy. The Smartapp is here to allow piloting vents/swtiches based on selected levels of IAQ</p>
+In Smartthings IDE: Create a SmartApp (then save and publish for yourself) from iaq-vent.groovy. The Smartapp is here to allow piloting vents/swtiches based on selected levels of IAQ</p>
 Create a device in Smartthings web page based on this device handler. Put anything as Device Network Id as the Device Handler will overwrite it at first run. Don't ever change it after if your raspberry doesn't change its static IP address otherwise, the parse method is sent for some reason to the former device despite the HubAction is sent by the new instance...<p></p>
 Configure the Smarthing device with the IP, port of the Raspberry and URL of the webpage and self-refreshing regularly.You can also access the web page directly by a http://[yourraspberry IP]/airmentorpro2.php?Action=get<p></p>
 <b>IMPORTANT:</b> use pollster smartapp to cadence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>

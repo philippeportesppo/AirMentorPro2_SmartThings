@@ -168,14 +168,14 @@ tiles(scale: 2) {
                 state "tstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/tstorms.png"
                 state "unknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/unknown.png"
                 state "nt_chanceflurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chanceflurries.png"	
-                state "nt_chancerain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancerain.png"
+                state "nt_chancerain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/nt_chancerain.png"
                 state "nt_chancesleet",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesleet.png"
                 state "nt_chancesnow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesnow.png"
                 state "nt_chancetstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancetstorms.png"
                 state "nt_clear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_clear.png"
                 state "nt_cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_cloudy.png"
                 state "nt_flurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_flurries.png"
-                state "nt_fog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_fog.png"
+                state "nt_fog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/icon_ios/images/nt_fog.png"
                 state "nt_hazy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_hazy.png"
                 state "nt_mostlycloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_mostlycloudy.png"
                 state "nt_mostlysunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_mostlysunny.png"
@@ -233,6 +233,7 @@ def initialize() {
     state.PM10_event= ""
     state.TVOC_event= ""
     state.requestCounter = 0
+
     log.debug "state events initialized..."
 
 }
@@ -264,7 +265,7 @@ def parse(description) {
 	state.requestCounter=0
 	def events = []
     //log.debug "The device id receiving is: $device.deviceNetworkId"
-    log.debug description
+    //log.debug description
     def msg = parseLanMessage(description)
     //log.debug msg.body
 	if (msg.status == 200)
@@ -377,7 +378,7 @@ def parse(description) {
         
         
         state.refreshCounter = state.refreshCounter + 1
-        log.debug state.refreshCounter
+        // log.debug state.refreshCounter
 
  		log.debug "Generating alerts if not good"
         
@@ -500,13 +501,13 @@ def refresh() {
     def port = internal_port
     def hosthex = convertIPtoHex(host)
     def porthex = convertPortToHex(port)
-    log.debug "The device id before update is: $device.deviceNetworkId"
+    //log.debug "The device id before update is: $device.deviceNetworkId"
     device.deviceNetworkId = "$hosthex:$porthex" 
     
-    log.debug "The device id configured is: $device.deviceNetworkId"
+    //log.debug "The device id configured is: $device.deviceNetworkId"
     
     def path = internal_query_path
-    log.debug "path is: $path"
+    //log.debug "path is: $path"
  
     def headers = [:] 
     headers.put("HOST", "$host:$port")

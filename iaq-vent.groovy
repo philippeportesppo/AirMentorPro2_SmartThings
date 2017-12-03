@@ -30,7 +30,8 @@ preferences {
 	input "level", "enum", title: "CO2 Level for vents action", options: ["good","moderate","unhealthy sensitive persons", "unhealthy", "very unhealthy"], required: true, multiple: true
 }
 	section("Ventilation Fan") {
-		input "switches", "capability.switch", title: "Switches", required: true, multiple: true
+		input "switches", "capability.switch", title: "Switches", required: no, multiple: true
+        input "thermostat","capability.thermostat", title: "thermostat", required: no, multiple: true
 	}
 }
 def installed() {
@@ -50,8 +51,11 @@ def handleLevel(evt) {
     if (evt.name=="IAQ" && level.contains(evt.value)) {
         log.debug "Turning on"
         switches.each { it.on(); }
+        thermostat.each {it.setThermostatFanMode("on");}
     } else {
         log.debug "Turning off"
         switches.each { it.off(); }
+        thermostat.each {it.setThermostatFanMode("auto");}
+
     }
 }

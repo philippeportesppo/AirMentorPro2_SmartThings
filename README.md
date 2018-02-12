@@ -1,28 +1,47 @@
-# AirMentorPro2_SmartThings
-
 <img src="https://github.com/philippeportesppo/AirMentorPro2_SmartThings/blob/master/overallsetup.png" alt="Overall Setup Icon" style="width:50%;height:50%;">
 
-What you need:
+<h2>Raspberry Pi 3 side:
 
-Raspberry PI 3 with Apache2 and PHP5 installed properly<p></p>
-  Raspberry Pi PHP and Apache installation instructions (https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md)
-Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network(otherwise the HubAction won't work and you need to implement external HTTPrequest instead)<p></p>
-Optional: 1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I didn't make it with the internal BT-LE of the Pi using the oringinal image on it, I used this external one then. Then recently, the Raspberry Pi internal BTLE works fine using Linux raspberrypi 4.4.50-v7+ #970 SMP Mon Feb 20 19:18:29 GMT 2017 armv7l GNU/Linux< image from the Raspberry website <p></p>
-Additional installation on Raspberry:<p></p>
-  <li>Bluez (http://www.elinux.org/RPi_Bluetooth_LE)<p></p></li>
-  <li>BluePy (https://github.com/IanHarvey/bluepy)<p></p></li>
-  <li>requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p></li>
-Put in Raspberry /var/www/html folder the file : airmentorpro2.php<p></p>
-Put in /home/pi/Documents the python script airmentorpro2.py<p></p>
-You will launch this first python script by: <b>sudo /usr/bin/python /var/www/html/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b><p></p>Example: sudo /usr/bin/python /var/www/html/airmentorpro2.py fe:ed:fa:ce:be:ef 0 & <p></p>As this script runs an infinit loop, better to fork it with &<p></p>
-Put in /home/pi/Documents the python script undergroundweather.py<p></p>
-This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/<p></p>The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on this GitHub.<p></p>
-<p></p> You will launche this script by: <b>sudo /usr/bin/python /var/www/html/undergroundweather.py [yourAPI key] [state] [city] &</b>
-<p>As this script runs an infinit loop, better to fork it with & too</p>
-In Smartthings IDE: Create a Device Handler (then save and publish for yourself) from air-mentor-pro-2.groovy <p></p>
-In Smartthings IDE: Create a SmartApp (then save and publish for yourself) from SmartApp.groovy. The Smartapp is here to allow the alerting on pollution level and polluant. This is an optional app, if you don't want to be notified, you can ignore it.<p>
-In Smartthings IDE: Create a SmartApp (then save and publish for yourself) from iaq-vent.groovy. The Smartapp is here to allow piloting vents/swtiches based on selected levels of IAQ</p>
-Create a device in Smartthings web page based on this device handler. Put anything as Device Network Id as the Device Handler will overwrite it at first run. Don't ever change it after if your raspberry doesn't change its static IP address otherwise, the parse method is sent for some reason to the former device despite the HubAction is sent by the new instance...<p></p>
-Configure the Smarthing device with the IP, port of the Raspberry and URL of the webpage and self-refreshing regularly.You can also access the web page directly by a http://[yourraspberry IP]/airmentorpro2.php?Action=get<p></p>
-<b>IMPORTANT:</b> use pollster smartapp to cadence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>
+<h3>1. Apache2 and PHP5 properly installed <a href="https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md"> (see here) </a> <p>
+Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network (otherwise the HubAction won't work and you need to implement external HTTPrequest instead)<p></p>
+Optional: 1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I didn't make it with the internal BT-LE of the Pi using the oringinal image on it, I used this external one then. Then recently, the Raspberry Pi internal BTLE works fine using Linux raspberrypi 4.4.50-v7+ #970 SMP Mon Feb 20 19:18:29 GMT 2017 armv7l GNU/Linux< image from the Raspberry website (or above)<p></p>
+<h3>2. Additional installation on Raspberry:<p>
+  <h4>Bluez (http://www.elinux.org/RPi_Bluetooth_LE)<p></p>
+  <h4>BluePy (https://github.com/IanHarvey/bluepy)<p></p>
+  <h4>>requests (http://raspberrypi-aa.github.io/session4/requests.html)</li><p></p><p>
+<h3>3. This project files installation:<p>    
+<li>Put in Raspberry /var/www/html folder the file : airmentorpro2.php</li>
+<li>Put in /home/pi the python script airmentorpro2.py</li>
+<li>Put in /home/pi the python script ssdp_server.py (this file uses wlan0 as interface. You can change the code to use eth0 or other)</li>
+<li>Put in /home/pi the python script undergroundweather.py</li>
+This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/<p></p>The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on this GitHub.
+<li>Create a folder "lib" in /home/pi</li>
+<li>Put in /home/pi/lib the 2 files ssdp.py and upnp_http_server.py.</li>
+This is mandatory the 2 files are in a lib folder and the lib folder at the same location as ssdp_server.py
+<li>In <b>/etc/rc.local</b>, just before the exit 0 (last line):</li> 
+<li>add: <b>sudo /usr/bin/python /home/pi/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b><p></p>Example: sudo /usr/bin/python /home/pi/airmentorpro2.py fe:ed:fa:ce:be:ef 0 & <p></p></li>
+
+  <li>add: <b>/usr/bin/python /home/pi/ssdp.py &</b></li>
+  <li>add <b>sudo /usr/bin/python /var/www/html/undergroundweather.py [yourAPI key] [state] [city] &</b></li>
+
+<h2>Smarthings IDE side:<p>
+
+<li> with a github enabled SmartThings IDE (see <a href=http://docs.smartthings.com/en/latest/tools-and-ide/github-integration.html > here</a>), import the namespace philippeportesppo and repository AirMentorPro2_SmartThings on master branch</li> and the following device handlers and smartapps:
+<h3>SmartApps:
+<li>AirMentor Pro UPnP Service Manager : the smartapp managing the ssdp discover.</li>
+<li>IAQ_vent : the smartapp managing vents and AC fans upon air quality notification</li>
+<li>Notify Me When for AirMentor Pro : the smartapp managing events and notify you about the air quality.</li>
+<h3>Device Handler:
+<li>Air Mentor Pro 2 : the device handler to access the AirMentor Pro 2</li>
+<p>
+If you cannot access github integration, you might have to create the devicehandler and smartapps manually from the code.
+
+<h2>SmartThing Mobile app:<p>
+  <li>Go to Smartapps section and add the <b>AirMentor Pro UPnP Service Manager</b> smartapp from "My Apps"</li>
+  <li>Start the research, few seconds later the pi will be discovered, select it, press next and save.</li>
+  <li>AirMentor Pro 2 will be added
+    
+
+<h3><b>IMPORTANT:</b></h3> use pollster smartapp to cadence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>
 Hope you like it.
+

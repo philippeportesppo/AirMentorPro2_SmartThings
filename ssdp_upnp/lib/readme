@@ -1,0 +1,3 @@
+The files are originally from ZeWarren repository but I replaced the logged by prints to avoid the additional complexity of the logger. 
+I also adapted the threading to Python 2.7.
+Finally I adapted to the AirMentor device and service descriptors.

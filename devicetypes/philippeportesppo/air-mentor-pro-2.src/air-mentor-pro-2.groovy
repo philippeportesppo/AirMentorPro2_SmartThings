@@ -28,9 +28,9 @@ metadata {
 
 preferences {
         section {
-            input "internal_ip", "text", title: "Internal IP", required: true
-            input "internal_port", "text", title: "Internal Port (80)", required: true
-            input "internal_query_path", "text", title: "Internal query Path (/airmentorpro2.php?Action=get)", required: true
+            //input "internal_ip", "text", title: "Internal IP", required: true
+            //input "internal_port", "text", title: "Internal Port (80)", required: true
+            //input "internal_query_path", "text", title: "Internal query Path", defaultValue: "/airmentorpro2.php?Action=get", required: true
             }		
         }
     
@@ -216,6 +216,20 @@ tiles(scale: 2) {
 
 def installed() {
 	log.debug "Executing 'installed'"
+    log.debug getDataValue("ip")
+    log.debug getDataValue("port")
+
+	state.IAQ_event = ""
+    state.CO2_event = ""
+    state.PM25_event= ""
+    state.PM10_event= ""
+    state.TVOC_event= ""
+    state.requestCounter = 0
+
+    log.debug "state events initialized..."
+
+ 	refresh()
+
     
 }
 
@@ -227,14 +241,7 @@ def updated() {
 }
 
 def initialize() {
-	state.IAQ_event = ""
-    state.CO2_event = ""
-    state.PM25_event= ""
-    state.PM10_event= ""
-    state.TVOC_event= ""
-    state.requestCounter = 0
 
-    log.debug "state events initialized..."
 
 }
 
@@ -375,11 +382,6 @@ def parse(description) {
        	events <<   createEvent(name: "UGWtemperaturecallevel", value: convertTemperature(UGW_Temp_float.toFloat(),temperatureScale), unit: temperatureScale)
        	events <<   createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Nt.toString()+UGW_Icon_Url.toString())
        
-        
-        
-        state.refreshCounter = state.refreshCounter + 1
-        // log.debug state.refreshCounter
-
  		log.debug "Generating alerts if not good"
         
         def map = generate_app_event( "IAQ",iaq_int.toInteger(), state.IAQ_event, 50, 100,150, 200)
@@ -497,17 +499,23 @@ private String convertPortToHex(port) {
 def refresh() {
 	log.debug "Executing refresh"
 	
-    def host = internal_ip 
-    def port = internal_port
-    def hosthex = convertIPtoHex(host)
-    def porthex = convertPortToHex(port)
-    //log.debug "The device id before update is: $device.deviceNetworkId"
-    device.deviceNetworkId = "$hosthex:$porthex" 
+    def host = getDataValue("ip")//internal_ip 
+    	log.debug "Executing refresh 2"
+
+    def port = getDataValue("port")//internal_port
+	log.debug "Executing refresh 3"
+
+    //def hosthex = convertIPtoHex(host)
+	log.debug "Executing refresh 4"
+
+    //def porthex = convertPortToHex(port)
+    log.debug "The device id before update is: $device.deviceNetworkId"
+    device.deviceNetworkId = "$host:$port" 
     
-    //log.debug "The device id configured is: $device.deviceNetworkId"
+    log.debug "The device id configured is: $device.deviceNetworkId"
     
-    def path = internal_query_path
-    //log.debug "path is: $path"
+    def path = getDataValue("query_path")
+    log.debug "path is: $path"
  
     def headers = [:] 
     headers.put("HOST", "$host:$port")

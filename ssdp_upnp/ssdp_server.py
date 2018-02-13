@@ -23,7 +23,7 @@ from time import sleep
 
 
 
-NETWORK_INTERFACE = 'wlan0' # or 'eth0'
+NETWORK_INTERFACE = 'wlan0'
 
 
 
@@ -76,25 +76,28 @@ def get_network_interface_ip_address(interface='wlan0'):
 
     """
 
+
+    while interface not in ni.interfaces():
+
+        print('Could not find interface %s.' % (interface,))
+
+        sleep(10)
+
+
+
     while True:
+        interfacestring = ni.ifaddresses(interface)
 
-        if NETWORK_INTERFACE not in ni.interfaces():
-
-            print('Could not find interface %s.' % (interface,))
-
-            exit(1)
-
-        interface = ni.ifaddresses(interface)
-
-        if (2 not in interface) or (len(interface[2]) == 0):
+        if (2 not in interfacestring) or (len(interfacestring[2]) == 0):
 
             print('Could not find IP of interface %s. Sleeping.' % (interface,))
 
-            sleep(60)
+            sleep(10)
 
             continue
-
-        return interface[2][0]['addr']
+        else:
+            break
+    return interfacestring[2][0]['addr']
 
 
 print "Start..."

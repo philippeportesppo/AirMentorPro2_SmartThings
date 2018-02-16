@@ -8,7 +8,8 @@ Optional: 1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I di
 <h3>2. Additional installation on Raspberry:<p>
   <h4>Bluez (http://www.elinux.org/RPi_Bluetooth_LE)<p></p>
   <h4>BluePy (https://github.com/IanHarvey/bluepy)<p></p>
-  <h4>>requests (http://raspberrypi-aa.github.io/session4/requests.html)</li><p></p><p>
+  <h4>requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p>
+  <h4>netifaces (python -m pip install netifaces)  <p></p>
 <h3>3. This project files installation:<p>    
 <li>Put in Raspberry /var/www/html folder the file : airmentorpro2.php</li>
 <li>Put in /home/pi the python script airmentorpro2.py</li>

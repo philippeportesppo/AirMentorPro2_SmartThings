@@ -138,7 +138,7 @@ def addDevices() {
 		}
 
 		if (!d) {
-			addChildDevice("philippeportesppo", "Air-Mentor-Pro-2", selectedDevice.value.mac, selectedDevice?.value.hub, [
+			addChildDevice("philippeportesppo", "Air Mentor Pro 2", selectedDevice.value.mac, selectedDevice?.value.hub, [
 				"label": selectedDevice?.value?.name ?: "AirMentorPro",
 				"data": [
 					"mac": selectedDevice.value.mac,

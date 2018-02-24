@@ -14,8 +14,6 @@ Optional: 1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I di
 <li>Put in Raspberry /var/www/html folder the file : airmentorpro2.php</li>
 <li>Put in /home/pi the python script airmentorpro2.py</li>
 <li>Put in /home/pi the python script ssdp_server.py (this file uses wlan0 as interface. You can change the code to use eth0 or other)</li>
-<li>Put in /home/pi the python script undergroundweather.py</li>
-This requires you to get a Weather UnderGround API key from https://www.wunderground.com/weather/api/<p></p>The information is used to provide more data about outside conditions. If you don't want to use this, check the previous versions of the DTH and html page on this GitHub.
 <li>Create a folder "lib" in /home/pi</li>
 <li>Put in /home/pi/lib the 2 files ssdp.py and upnp_http_server.py.</li>
 This is mandatory the 2 files are in a lib folder and the lib folder at the same location as ssdp_server.py
@@ -23,7 +21,6 @@ This is mandatory the 2 files are in a lib folder and the lib folder at the same
 <li>add: <b>sudo /usr/bin/python /home/pi/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b><p></p>Example: sudo /usr/bin/python /home/pi/airmentorpro2.py fe:ed:fa:ce:be:ef 0 & <p></p></li>
 
   <li>add: <b>/usr/bin/python /home/pi/ssdp.py &</b></li>
-  <li>add <b>sudo /usr/bin/python /var/www/html/undergroundweather.py [yourAPI key] [state] [city] &</b></li>
 
 <h2>Smarthings IDE side:<p>
 

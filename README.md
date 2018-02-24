@@ -2,7 +2,7 @@
 
 <h2>Raspberry Pi 3 side:</h2>
 
-<h3>1. Apache2 and PHP5 properly installed <a href="https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md"> (see here) </a> <p>
+<h3>1. Apache2 and PHP5 properly installed <a href="https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md"> (see here) </a></h3> <p>
 Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network (otherwise the HubAction won't work and you need to implement external HTTPrequest instead)<p></p>
 Optional: 1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I didn't make it with the internal BT-LE of the Pi using the oringinal image on it, I used this external one then. Then recently, the Raspberry Pi internal BTLE works fine using Linux raspberrypi 4.4.50-v7+ #970 SMP Mon Feb 20 19:18:29 GMT 2017 armv7l GNU/Linux< image from the Raspberry website (or above)<p></p>
 <h3>2. Additional installation on Raspberry:<p></h3>
@@ -22,7 +22,7 @@ This is mandatory the 2 files are in a lib folder and the lib folder at the same
 
   <li>add: <b>/usr/bin/python /home/pi/ssdp.py &</b></li>
 
-<h2>Smarthings IDE side:<p>
+<h2>Smarthings IDE side:<p></h2>
 
 <li> with a github enabled SmartThings IDE (see <a href=http://docs.smartthings.com/en/latest/tools-and-ide/github-integration.html > here</a>), import the namespace philippeportesppo and repository AirMentorPro2_SmartThings on master branch</li> and the following device handlers and smartapps:
 <h3>SmartApps:
@@ -34,7 +34,7 @@ This is mandatory the 2 files are in a lib folder and the lib folder at the same
 <p>
 If you cannot access github integration, you might have to create the devicehandler and smartapps manually from the code.
 
-<h2>SmartThing Mobile app:<p>
+<h2>SmartThing Mobile app:<p></h2>
   <li>Go to Smartapps section and add the <b>AirMentor Pro UPnP Service Manager</b> smartapp from "My Apps"</li>
   <li>Start the research, few seconds later the pi will be discovered, select it, press next and save.</li>
   <li>AirMentor Pro 2 will be added

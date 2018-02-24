@@ -25,11 +25,11 @@ This is mandatory the 2 files are in a lib folder and the lib folder at the same
 <h2>Smarthings IDE side:<p></h2>
 
 <li> with a github enabled SmartThings IDE (see <a href=http://docs.smartthings.com/en/latest/tools-and-ide/github-integration.html > here</a>), import the namespace philippeportesppo and repository AirMentorPro2_SmartThings on master branch</li> and the following device handlers and smartapps:
-<h3>SmartApps:
+<h3>SmartApps:</h3>
 <li>AirMentor Pro UPnP Service Manager : the smartapp managing the ssdp discover.</li>
 <li>IAQ_vent : the smartapp managing vents and AC fans upon air quality notification</li>
 <li>Notify Me When for AirMentor Pro : the smartapp managing events and notify you about the air quality.</li>
-<h3>Device Handler:
+<h3>Device Handler:</h3>
 <li>Air Mentor Pro 2 : the device handler to access the AirMentor Pro 2</li>
 <p>
 If you cannot access github integration, you might have to create the devicehandler and smartapps manually from the code.

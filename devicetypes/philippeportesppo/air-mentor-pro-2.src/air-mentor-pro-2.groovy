@@ -18,7 +18,8 @@ definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "P
     	capability "refresh"
         capability "polling"
         capability "sensor"
-		capability "Carbon Dioxide Measurement"
+        capability "capability.airQualitySensor"
+		capability "capability.carbonDioxideMeasurement"
         capability "capability.temperatureMeasurement"
         capability "capability.relativeHumidityMeasurement"
 		
@@ -36,7 +37,7 @@ preferences {
     
 tiles(scale: 2) {
 
-    standardTile("iaqlevel", "device.iaqlevel", width: 6, height: 3) {
+    standardTile("airQuality", "device.airQuality", width: 6, height: 3) {
         state"default", label:'${currentValue}', wordWrap: false, icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/app-icon_bw_iaq.png", backgroundColors:[
             [value: 0, color: "#153591"],
             [value: 1, color: "#1d9114"],
@@ -49,7 +50,7 @@ tiles(scale: 2) {
                
                
                
-	standardTile("temperaturecallevel", "device.temperaturecallevel", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+	standardTile("temperature", "device.temperature", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
             state "default", label: '${currentValue}º',unit:'${currentValue}', 
                   icon: "st.Weather.weather2", backgroundColors:[
             [value: 10, color: "#153591"], 
@@ -61,7 +62,7 @@ tiles(scale: 2) {
             [value: 28, color: "#bc2323"]]
         }        
         
-	standardTile("humiditylevel", "device.humiditylevel", width: 2, height: 2) {
+	standardTile("humidity", "device.humidity", width: 2, height: 2) {
             state "default", label: '${currentValue}%', 
                   icon: "st.Weather.weather12", backgroundColors:[
             [value: 40, color: "#153591"],
@@ -72,7 +73,7 @@ tiles(scale: 2) {
             [value: 90, color: "#d04e00"],
             [value: 95, color: "#bc2323"]]
         }
-		standardTile("co2level", "device.co2level", width: 2, height: 2,decoration: "flat") {
+		standardTile("carbonDioxide", "device.carbonDioxide", width: 2, height: 2,decoration: "flat") {
             state "default", label: '${currentValue}', 
 
                   icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/CO2-Icon.png", backgroundColors:[
@@ -208,7 +209,7 @@ tiles(scale: 2) {
             [value: 200, color: "#5100a3"]]
    		}
 	main("iaq_main")
-	details(["iaqlevel","co2level","pm2_5level","pm10level","tvoclevel","temperaturecallevel","humiditylevel","EMClevel","RealFeellevel","dewpointlevel","UGW_web","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGW_Icon_UrlIcon","weather","refresh" ])
+	details(["airQuality","carbonDioxide","pm2_5level","pm10level","tvoclevel","temperature","humidity","EMClevel","RealFeellevel","dewpointlevel","UGW_web","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGW_Icon_UrlIcon","weather","refresh" ])
  	}
     
 }    
@@ -290,13 +291,15 @@ def parse(description) {
         log.debug "TVOC: ${html.body.table.tr[1].td[6].text()}"        
         log.debug "IAQ: ${html.body.table.tr[1].td[7].text()}"
         log.debug "Battery: ${html.body.table.tr[1].td[8].text()}"
-        log.debug "UGW_feelslike:${html.body.table.tr[1].td[9].text()}"
-        log.debug "UGW_DewPoint:${html.body.table.tr[1].td[10].text()}"
-        log.debug "UGW_Humidity:${html.body.table.tr[1].td[11].text()}"
-        log.debug "UGW_Temp:${html.body.table.tr[1].td[12].text()}"
-        log.debug "UGW_Icon_Url:${html.body.table.tr[1].td[13].text()}"
-        log.debug "UGW_Icon_Night:${html.body.table.tr[1].td[14].text()}"
-        log.debug "UGW_Weather:${html.body.table.tr[1].td[15].text()}"
+        
+        // Now use ST 
+        def mymap = getWeatherFeature("conditions")
+        log.debug "UGW_feelslike:${mymap['current_observation']['feelslike_c']}"
+        log.debug "UGW_DewPoint:${mymap['current_observation']['dewpoint_c']}"
+        log.debug "UGW_Humidity:${mymap['current_observation']['relative_humidity']}"
+        log.debug "UGW_Temp:${mymap['current_observation']['temp_c']}"
+        //log.debug "UGW_Icon_Url:"+mymap['current_observation']['icon_url'].substring(28,mymap['current_observation']['icon_url'].length()-4)
+        log.debug "UGW_Weather:${mymap['current_observation']['weather']}"
         
         def co2_int     = html.body.table.tr[1].td[0].text()
         def pm2_5_int   = html.body.table.tr[1].td[1].text()
@@ -307,12 +310,11 @@ def parse(description) {
         def tvoc_int    = html.body.table.tr[1].td[6].text()
         def iaq_int     = html.body.table.tr[1].td[7].text()  
         def battery_int = html.body.table.tr[1].td[8].text()  
-        def UGW_feelslike_float  = html.body.table.tr[1].td[9].text()
-        def UGW_DewPoint_float  = html.body.table.tr[1].td[10].text()
-        def UGW_Humidity_float = html.body.table.tr[1].td[11].text()
-        def UGW_Temp_float = html.body.table.tr[1].td[12].text() 
-        def UGW_Icon_Url = html.body.table.tr[1].td[13].text()
-        def UGW_Icon_Nt =  html.body.table.tr[1].td[14].text()
+        def UGW_feelslike_float  = mymap['current_observation']['feelslike_c']
+        def UGW_DewPoint_float  = mymap['current_observation']['dewpoint_c']
+        def UGW_Humidity_float = mymap['current_observation']['relative_humidity'].substring(0, mymap['current_observation']['relative_humidity'].length()-1) 
+        def UGW_Temp_float = mymap['current_observation']['temp_c'] 
+        def UGW_Icon_Url = mymap['current_observation']['icon_url'].substring(28,mymap['current_observation']['icon_url'].length()-4)
 
 		// You can compute your own country IAQ based on local regulations.
   		// Or use the Air Mentor Pro 2 IAQ
@@ -344,15 +346,15 @@ def parse(description) {
 		//log.debug "Generating events for UX refresh"
         def temperatureScale = getTemperatureScale()
 
-        events <<  createEvent(name: "co2level",     		value: co2_int.toString())
+        events <<  createEvent(name: "carbonDioxide",     		value: co2_int.toString())
         events <<  createEvent(name: "pm2_5level",       value: pm2_5_int.toString())
         events <<  createEvent(name: "pm10level",    		value: pm10_int.toString())
         events <<  createEvent(name: "tvoclevel",    		value: tvoc_int.toString())
-        events <<  createEvent(name: "iaqlevel",     		value: iaq_int.toString())
+        events <<  createEvent(name: "airQuality",     		value: iaq_int.toString())
         events <<  createEvent(name: "iaq_main",       value: iaq_int.toString())
         
-        events <<  createEvent(name:"temperaturecallevel",  value: convertTemperature(temp_cal_float.toFloat(),temperatureScale), unit: temperatureScale)
-        events <<  createEvent(name: "humiditylevel", 	    value: humid_float.toString().format(java.util.Locale.US,"%.1f", humid_float.toFloat()))
+        events <<  createEvent(name:"temperature",  value: convertTemperature(temp_cal_float.toFloat(),temperatureScale), unit: temperatureScale)
+        events <<  createEvent(name: "humidity", 	    value: humid_float.toString().format(java.util.Locale.US,"%.1f", humid_float.toFloat()))
 
 		// Environmental indicators
         
@@ -380,12 +382,10 @@ def parse(description) {
         events <<   createEvent(name: "UGWdewpointlevel", value: convertTemperature(UGW_DewPoint_float.toFloat(),temperatureScale), unit: temperatureScale)
         events <<   createEvent(name: "UGWhumiditylevel", value: UGW_Humidity_float.toString())
        	events <<   createEvent(name: "UGWtemperaturecallevel", value: convertTemperature(UGW_Temp_float.toFloat(),temperatureScale), unit: temperatureScale)
-       	events <<   createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Nt.toString()+UGW_Icon_Url.toString())
-       
- 		log.debug "Generating alerts if not good"
-        
+       	events <<   createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Url.toString())
+            
+        // Alert management    
         def map = generate_app_event( "IAQ",iaq_int.toInteger(), state.IAQ_event, 50, 100,150, 200)
-
         if (map) {
 			events << createEvent(map)
             state.IAQ_event = map.descriptionText
@@ -483,39 +483,16 @@ private generate_app_event( name_, int value_, previous, int thres_moderate, int
     }
 }
 
-private String convertIPtoHex(ipAddress) { 
-    String hex = ipAddress.tokenize( '.' ).collect {  String.format( '%02x', it.toInteger() ) }.join()
-    log.debug "IP address entered is $ipAddress and the converted hex code is $hex"
-    return hex
-
-}
-
-private String convertPortToHex(port) {
-	String hexport = port.toString().format( '%04x', port.toInteger() )
-    log.debug hexport
-    return hexport
-}
-
 def refresh() {
 	log.debug "Executing refresh"
 	
-    def host = getDataValue("ip")//internal_ip 
-    	log.debug "Executing refresh 2"
+    def host = getDataValue("ip")
 
-    def port = getDataValue("port")//internal_port
-	log.debug "Executing refresh 3"
+    def port = getDataValue("port")
 
-    //def hosthex = convertIPtoHex(host)
-	log.debug "Executing refresh 4"
-
-    //def porthex = convertPortToHex(port)
-    log.debug "The device id before update is: $device.deviceNetworkId"
     device.deviceNetworkId = "$host:$port" 
-    
-    log.debug "The device id configured is: $device.deviceNetworkId"
-    
+       
     def path = getDataValue("query_path")
-    log.debug "path is: $path"
  
     def headers = [:] 
     headers.put("HOST", "$host:$port")

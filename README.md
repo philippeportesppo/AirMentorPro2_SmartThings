@@ -1,16 +1,16 @@
 <img src="https://github.com/philippeportesppo/AirMentorPro2_SmartThings/blob/master/overallsetup.png" alt="Overall Setup Icon" style="width:50%;height:50%;">
 
-<h2>Raspberry Pi 3 side:
+<h2>Raspberry Pi 3 side:</h2>
 
 <h3>1. Apache2 and PHP5 properly installed <a href="https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md"> (see here) </a> <p>
 Assign a static IP address to your raspberry on your local network. This project works only if your Hub and raspberry are on same network (otherwise the HubAction won't work and you need to implement external HTTPrequest instead)<p></p>
 Optional: 1 USB dongle BT-LE (Plugable Dual-Mode BT-LE/BT model USB-BT4LE)  I didn't make it with the internal BT-LE of the Pi using the oringinal image on it, I used this external one then. Then recently, the Raspberry Pi internal BTLE works fine using Linux raspberrypi 4.4.50-v7+ #970 SMP Mon Feb 20 19:18:29 GMT 2017 armv7l GNU/Linux< image from the Raspberry website (or above)<p></p>
-<h3>2. Additional installation on Raspberry:<p>
+<h3>2. Additional installation on Raspberry:<p></h3>
   <h4>Bluez (http://www.elinux.org/RPi_Bluetooth_LE)<p></p>
-  <h4>BluePy (https://github.com/IanHarvey/bluepy)<p></p>
-  <h4>requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p>
-  <h4>netifaces (python -m pip install netifaces)  <p></p>
-<h3>3. This project files installation:<p>    
+  BluePy (https://github.com/IanHarvey/bluepy)<p></p>
+  requests (http://raspberrypi-aa.github.io/session4/requests.html)<p></p>
+  netifaces (python -m pip install netifaces)  <p></p></h4>
+<h3>3. This project files installation:<p>    </h3>
 <li>Put in Raspberry /var/www/html folder the file : airmentorpro2.php</li>
 <li>Put in /home/pi the python script airmentorpro2.py</li>
 <li>Put in /home/pi the python script ssdp_server.py (this file uses wlan0 as interface. You can change the code to use eth0 or other)</li>

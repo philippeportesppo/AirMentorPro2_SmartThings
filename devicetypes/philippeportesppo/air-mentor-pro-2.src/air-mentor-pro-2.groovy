@@ -416,7 +416,7 @@ def parse(description) {
             state.TVOC_event=map.descriptionText
 		}
 		
-        events << createEvent( name:"weather", value: html.body.table.tr[1].td[15].text(), display:true, isStateChange: true)
+        events << createEvent( name:"weather", value: mymap['current_observation']['weather'], display:true, isStateChange: true)
 
 	}
 

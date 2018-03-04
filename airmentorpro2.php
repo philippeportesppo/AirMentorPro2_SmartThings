@@ -16,13 +16,6 @@
                 <td> TVOC</td>
                 <td> IAQ</td>
                 <td> Battery</td>
-                <td> UGW_FeelsLike_C</td>
-                <td> UGW_DewPoint_C</td>
-                <td> UGW_Humidity</td>
-                <td> UGW_Temperature_C</td>
-                <td> UGW_Weather</td>
-                <td> UGW_Icon_Nt</td>
-                <td> UGW_Weather</td>
         </tr>
         <tr>
 <?php
@@ -94,59 +87,9 @@ if (isset($_GET["Action"])) {
                         if (!isset($_SESSION["BATT"]))
                             $_SESSION["BATT"]="na";
                 }
-
-                if (isset($_GET["UGW_FL"])) {
-                        $_SESSION["UGW_FL"]=$_GET["UGW_FL"];}
-                else {
-                        if (!isset($_SESSION["UGW_FL"]))
-                            $_SESSION["UGW_FL"]="na";
-                }
-
-                if (isset($_GET["UGW_DP"])) {
-                        $_SESSION["UGW_DP"]=$_GET["UGW_DP"];}
-                else {
-                        if (!isset($_SESSION["UGW_DP"]))
-                            $_SESSION["UGW_DP"]="na";
-                }
-
-                if (isset($_GET["UGW_HUM"])) {
-                        $_SESSION["UGW_HUM"]=$_GET["UGW_HUM"];}
-                else {
-                        if (!isset($_SESSION["UGW_HUM"]))
-                            $_SESSION["UGW_HUM"]="na";
-                }
-
-                if (isset($_GET["UGW_TEM"])) {
-                        $_SESSION["UGW_TEM"]=$_GET["UGW_TEM"];}
-                else {
-                        if (!isset($_SESSION["UGW_TEM"]))
-                            $_SESSION["UGW_TEM"]="na";
-                }
-
-                if (isset($_GET["UGW_ICON"])) {
-                        $_SESSION["UGW_ICON"]=$_GET["UGW_ICON"];}
-                else {
-                        if (!isset($_SESSION["UGW_ICON"]))
-                            $_SESSION["UGW_ICON"]="na";
-                }
-
-                if (isset($_GET["UGW_NT"])) {
-                        $_SESSION["UGW_NT"]=$_GET["UGW_NT"];}
-                else {
-                        if (!isset($_SESSION["UGW_NT"]))
-                            $_SESSION["UGW_NT"]="na";
-                }
-
-                if (isset($_GET["UGW_WEATHER"])) {
-                        $_SESSION["UGW_WEATHER"]=$_GET["UGW_WEATHER"];}
-                else {
-                        if (!isset($_SESSION["UGW_WEATHER"]))
-                            $_SESSION["UGW_WEATHER"]="na";
-                }
         }
         else
         {
-
                 echo "<td>" . $_SESSION['CO2'] . "</td>";
                 echo "<td>" . $_SESSION['PM25'] . "</td>";
                 echo "<td>" . $_SESSION['PM10'] . "</td>";
@@ -156,13 +99,6 @@ if (isset($_GET["Action"])) {
                 echo "<td>" . $_SESSION['TVOC'] . "</td>";
                 echo "<td>" . $_SESSION['IAQ'] . "</td>";
                 echo "<td>" . $_SESSION['BATT'] . "</td>";
-                echo "<td>" . $_SESSION['UGW_FL'] . "</td>";
-                echo "<td>" . $_SESSION['UGW_DP'] . "</td>";
-                echo "<td>" . $_SESSION['UGW_HUM'] . "</td>";
-                echo "<td>" . $_SESSION['UGW_TEM'] . "</td>";
-                echo "<td>" . $_SESSION['UGW_ICON'] . "</td>";
-                echo "<td>" . $_SESSION['UGW_NT'] . "</td>";
-                echo "<td>" . $_SESSION['UGW_WEATHER'] . "</td>";
         }
 }
 ?>

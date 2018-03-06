@@ -20,7 +20,7 @@ This is mandatory the 2 files are in a lib folder and the lib folder at the same
 <li>In <b>/etc/rc.local</b>, just before the exit 0 (last line):</li> 
 <li>add: <b>sudo /usr/bin/python /home/pi/airmentorpro2.py [your AirMentor MAC] [your hci#] & </b><p></p>Example: sudo /usr/bin/python /home/pi/airmentorpro2.py fe:ed:fa:ce:be:ef 0 & <p></p></li>
 
-  <li>add: <b>/usr/bin/python /home/pi/ssdp.py &</b></li>
+  <li>add: <b>/usr/bin/python /home/pi/ssdp_server.py &</b></li>
 
 <h2>Smarthings IDE side:<p></h2>
 

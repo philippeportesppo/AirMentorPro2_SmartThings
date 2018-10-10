@@ -43,3 +43,4 @@ If you cannot access github integration, you might have to create the devicehand
 <h3><b>IMPORTANT:</b></h3> use pollster smartapp to cadence the polling (every 5min) otherwise, Smartthing known issue will let the DTH stoping the polling after 24h or so.<p></p>
 Hope you like it.
 
+[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/philippeportesppo)

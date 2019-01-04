@@ -14,7 +14,7 @@
  *
  */
  
-definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", oauth: true) {
+definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", oauth: true, ocfDeviceType: "oic.d.airqualitymonitor", mnmn: "SmartThings", vid:"generic-carbon-monoxide") {
     	capability "refresh"
         capability "polling"
         capability "sensor"

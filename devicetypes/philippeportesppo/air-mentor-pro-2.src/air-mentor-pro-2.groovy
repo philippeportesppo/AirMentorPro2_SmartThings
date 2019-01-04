@@ -120,7 +120,7 @@ tiles(scale: 2) {
         }
 
  	standardTile("dewpointlevel", "device.dewpointlevel",  width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
-            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/dewpoint.png", backgroundColor:"#e5e9ea"}
+            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/dewpoint.png", backgroundColor:"#888888"}
             
   	standardTile("EMClevel", "device.EMClevel",  width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
             state "default",  label: '${currentValue}%',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/EMC.png", backgroundColors:[
@@ -131,63 +131,73 @@ tiles(scale: 2) {
             }
 
     standardTile("RealFeellevel", "device.RealFeellevel",   width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png",backgroundColor:"#e5e9ea"}
+            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png",backgroundColor:"#999999"}
             
-    standardTile("UGW_web", "device.UGW_web",  width: 6, height: 3,  canChangeIcon: false ) {
-            state "default", icon: "http://icons.wxug.com/graphics/wu2/logo_130x80.png"      }   
+    standardTile("TWC_web", "device.TWC_web",  width: 6, height: 3,  canChangeIcon: false ) {
+            state "default", icon: "https://business.weather.com/img/the-weather-company-logo.png"  , backgroundColor: "#999999"    }   
              
-    standardTile("UGWtemperaturecallevel", "device.UGWtemperaturecallevel", width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default", label: '${currentValue}º',unit:'${currentValue}', icon: "st.Weather.weather2", backgroundColor:"#e5e9ea"}  
+    standardTile("TWCtemperaturecallevel", "device.TWCtemperaturecallevel", width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            state "default", label: '${currentValue}º',unit:'${currentValue}', icon: "st.Weather.weather2", backgroundColor:"#999999"}  
         
-	standardTile("UGWhumiditylevel", "device.UGWhumiditylevel", width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default", label: '${currentValue}', icon: "st.Weather.weather12", backgroundColor:"#e5e9ea"      }
+	standardTile("TWChumiditylevel", "device.TWChumiditylevel", width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            state "default", label: '${currentValue}', icon: "st.Weather.weather12", backgroundColor:"#999999"      }
             
-	standardTile("UGWFeelsLikelevel", "device.UGWFeelsLikelevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png", backgroundColor:"#e5e9ea"}
+	standardTile("TWCFeelsLikelevel", "device.TWCFeelsLikelevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png", backgroundColor:"#999999"}
 
-	standardTile("UGWdewpointlevel", "device.UGWdewpointlevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/dewpoint.png", backgroundColor:"#e5e9ea"}
-            
-    standardTile("UGW_Icon_UrlIcon", "device.UGW_Icon_UrlIcon", decoration: "flat",   width: 2, height: 2) {
-                state "chancerain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancerain.png"
-                state "chancesleet",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancesleet.png"
-                state "chancesnow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancesnow.png"
-                state "chancetstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/chancetstorms.png"
-                state "clear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/clear.png"
-                state "cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/cloudy.png"
-                state "flurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/flurries.png"
-                state "fog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/fog.png"
-                state "hazy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/hazy.png"
-                state "mostlycloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/mostlycloudy.png"
-                state "mostlysunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/mostlysunny.png"
-                state "partlycloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/partlycloudy.png"
-                state "partlysunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/partlysunny.png"
-                state "sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/sleet.png"
-                state "rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/rain.png"
-                state "snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/snow.png"
-                state "sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/sunny.png"
-                state "tstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/tstorms.png"
-                state "unknown",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/unknown.png"
-                state "nt_chanceflurries",	icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chanceflurries.png"	
-                state "nt_chancerain",		icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancerain.png"
-                state "nt_chancesleet",	icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesleet.png"
-                state "nt_chancesnow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancesnow.png"
-                state "nt_chancetstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_chancetstorms.png"
-                state "nt_clear",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_clear.png"
-                state "nt_cloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_cloudy.png"
-                state "nt_flurries",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_flurries.png"
-                state "nt_fog",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_fog.png"
-                state "nt_hazy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_hazy.png"
-                state "nt_mostlycloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_mostlycloudy.png"
-                state "nt_mostlysunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_mostlysunny.png"
-                state "nt_partlycloudy",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_partlycloudy.png"
-                state "nt_sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_sleet.png"
-                state "nt_rain",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_rain.png"
-                state "nt_sleet",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_sleet.png"
-                state "nt_snow",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_snow.png"
-                state "nt_sunny",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_sunny.png"
-                state "nt_tstorms",icon:"https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/nt_tstorms.png"
-	}
+	standardTile("TWCdewpointlevel", "device.TWCdewpointlevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+            	state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/dewpoint.png", backgroundColor:"#999999"}
+    standardTile("TWC_Icon_UrlIcon", "device.TWC_Icon_UrlIcon", decoration: "flat",   width: 2, height: 2) {
+    			state "na",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/na.png"
+                state "0", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/0.png"
+                state "1", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/1.png"
+                state "2", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/2.png"
+                state "3", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/3.png"
+                state "4", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/4.png"
+                state "5", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/5.png"
+                state "6", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/6.png"
+                state "7", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/7.png"
+                state "8", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/8.png"
+                state "9", icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/9.png"
+                state "10",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/10.png"
+                state "11",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/11.png"
+                state "12",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/12.png"
+                state "13",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/13.png"
+                state "14",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/14.png"
+                state "15",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/15.png"
+                state "16",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/16.png"
+                state "17",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/17.png"
+                state "18",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/18.png"
+                state "19",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/19.png"
+                state "20",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/20.png"	
+                state "21",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/21.png"
+                state "22",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/22.png"
+                state "23",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/23.png"
+                state "24",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/24.png"
+                state "25",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/25.png"
+                state "26",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/26.png"
+                state "27",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/27.png"
+                state "28",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/28.png"
+                state "29",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/29.png"
+                state "30",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/30.png"
+                state "31",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/31.png"
+                state "32",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/32.png"
+                state "33",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/33.png"
+                state "34",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/34.png"
+                state "35",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/35.png"
+                state "36",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/36.png"
+                state "37",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/37.png"
+                state "38",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/38.png"
+                state "39",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/39.png"
+                state "40",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/40.png"
+                state "41",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/41.png"
+                state "42",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/42.png"
+                state "43",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/43.png"
+                state "44",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/44.png"
+                state "45",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/45.png"
+                state "46",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/46.png"
+                state "47",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/47.png"
+        	}
             
     standardTile("refresh", "device.refresh", decoration: "flat", width: 2, height: 2) {
  		state "default", action:"refresh", icon:"st.secondary.refresh"
@@ -209,7 +219,7 @@ tiles(scale: 2) {
             [value: 200, color: "#5100a3"]]
    		}
 	main("iaq_main")
-	details(["airQuality","carbonDioxide","pm2_5level","pm10level","tvoclevel","temperature","humidity","EMClevel","RealFeellevel","dewpointlevel","UGW_web","UGWtemperaturecallevel","UGWhumiditylevel","UGWFeelsLikelevel","UGWdewpointlevel","UGW_Icon_UrlIcon","weather","refresh" ])
+	details(["airQuality","carbonDioxide","pm2_5level","pm10level","tvoclevel","temperature","humidity","EMClevel","RealFeellevel","dewpointlevel","TWC_web","TWCtemperaturecallevel","TWChumiditylevel","TWCFeelsLikelevel","TWCdewpointlevel","TWC_Icon_UrlIcon","weather","refresh" ])
  	}
     
 }    
@@ -293,13 +303,7 @@ def parse(description) {
         log.debug "Battery: ${html.body.table.tr[1].td[8].text()}"
         
         // Now use ST 
-        def mymap = getWeatherFeature("conditions")
-        log.debug "UGW_feelslike:${mymap['current_observation']['feelslike_c']}"
-        log.debug "UGW_DewPoint:${mymap['current_observation']['dewpoint_c']}"
-        log.debug "UGW_Humidity:${mymap['current_observation']['relative_humidity']}"
-        log.debug "UGW_Temp:${mymap['current_observation']['temp_c']}"
-        //log.debug "UGW_Icon_Url:"+mymap['current_observation']['icon_url'].substring(28,mymap['current_observation']['icon_url'].length()-4)
-        log.debug "UGW_Weather:${mymap['current_observation']['weather']}"
+        def mymap = getTwcConditions()
         
         def co2_int     = html.body.table.tr[1].td[0].text()
         def pm2_5_int   = html.body.table.tr[1].td[1].text()
@@ -310,12 +314,11 @@ def parse(description) {
         def tvoc_int    = html.body.table.tr[1].td[6].text()
         def iaq_int     = html.body.table.tr[1].td[7].text()  
         def battery_int = html.body.table.tr[1].td[8].text()  
-        def UGW_feelslike_float  = mymap['current_observation']['feelslike_c']
-        def UGW_DewPoint_float  = mymap['current_observation']['dewpoint_c']
-        def UGW_Humidity_float = mymap['current_observation']['relative_humidity'].substring(0, mymap['current_observation']['relative_humidity'].length()-1) 
-        def UGW_Temp_float = mymap['current_observation']['temp_c'] 
-        def UGW_Icon_Url = mymap['current_observation']['icon_url'].substring(28,mymap['current_observation']['icon_url'].length()-4)
-
+        def TWC_feelslike_float  = mymap['temperatureFeelsLike']
+        def TWC_DewPoint_float  = mymap['temperatureDewPoint']
+        def TWC_Humidity_float = mymap['relativeHumidity'] 
+        def TWC_Temp_float = mymap['temperature'] 
+        def TWV_Icon_Url = mymap['iconCode']
 		// You can compute your own country IAQ based on local regulations.
   		// Or use the Air Mentor Pro 2 IAQ
         // if no measurment available, put -1 to get a blue colored icon at tiles
@@ -378,12 +381,12 @@ def parse(description) {
         events <<  createEvent(name: "RealFeellevel", value: convertTemperature(realfeel,temperatureScale), unit: temperatureScale)
  
  		// UnderGround Weather references
-       	events <<   createEvent(name: "UGWFeelsLikelevel", value: convertTemperature(UGW_feelslike_float.toFloat(),temperatureScale), unit: temperatureScale)
-        events <<   createEvent(name: "UGWdewpointlevel", value: convertTemperature(UGW_DewPoint_float.toFloat(),temperatureScale), unit: temperatureScale)
-        events <<   createEvent(name: "UGWhumiditylevel", value: UGW_Humidity_float.toString())
-       	events <<   createEvent(name: "UGWtemperaturecallevel", value: convertTemperature(UGW_Temp_float.toFloat(),temperatureScale), unit: temperatureScale)
-       	events <<   createEvent(name: "UGW_Icon_UrlIcon", value: UGW_Icon_Url.toString())
-            
+       	events <<   createEvent(name: "TWCFeelsLikelevel", value:mymap['temperatureFeelsLike'], unit: temperatureScale)
+        events <<   createEvent(name: "TWCdewpointlevel", value: mymap['temperatureDewPoint'], unit: temperatureScale)
+        events <<   createEvent(name: "TWChumiditylevel", value: mymap['relativeHumidity'])
+       	events <<   createEvent(name: "TWCtemperaturecallevel", value: mymap['temperature'], unit: temperatureScale)
+       	events <<   createEvent(name: "TWC_Icon_UrlIcon", value: mymap['iconCode'])
+         
         // Alert management    
         def map = generate_app_event( "IAQ",iaq_int.toInteger(), state.IAQ_event, 50, 100,150, 200)
         if (map) {
@@ -416,7 +419,7 @@ def parse(description) {
             state.TVOC_event=map.descriptionText
 		}
 		
-        events << createEvent( name:"weather", value: mymap['current_observation']['weather'], display:true, isStateChange: true)
+        events << createEvent( name:"weather", value: mymap['wxPhraseMedium'], display:true, isStateChange: true)
 
 	}
 

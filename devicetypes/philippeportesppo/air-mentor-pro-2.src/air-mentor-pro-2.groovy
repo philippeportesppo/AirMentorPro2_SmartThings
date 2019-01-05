@@ -140,7 +140,7 @@ tiles(scale: 2) {
             state "default", label: '${currentValue}º',unit:'${currentValue}', icon: "st.Weather.weather2", backgroundColor:"#999999"}  
         
 	standardTile("TWChumiditylevel", "device.TWChumiditylevel", width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
-            state "default", label: '${currentValue}', icon: "st.Weather.weather12", backgroundColor:"#999999"      }
+            state "default", label: '${currentValue}%', icon: "st.Weather.weather12", backgroundColor:"#999999"      }
             
 	standardTile("TWCFeelsLikelevel", "device.TWCFeelsLikelevel",  width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
             state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png", backgroundColor:"#999999"}

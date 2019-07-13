@@ -13,8 +13,8 @@
  *  for the specific language governing permissions and limitations under the License.
  *
  */
- 
-definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", oauth: true, ocfDeviceType: "oic.d.airqualitymonitor", mnmn: "SmartThings", vid:"generic-carbon-monoxide") {
+metadata {
+definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", oauth: true, ocfDeviceType: "x.com.st.airqualitylevel", mnmn: "SmartThings", vid:"generic-carbon-monoxide") {
     	capability "refresh"
         capability "polling"
         capability "sensor"
@@ -25,7 +25,7 @@ definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "P
 		
 }
 
-metadata {
+/*
 
 preferences {
         section {
@@ -34,7 +34,7 @@ preferences {
             //input "internal_query_path", "text", title: "Internal query Path", defaultValue: "/airmentorpro2.php?Action=get", required: true
             }		
         }
-    
+  */  
 tiles(scale: 2) {
 
     standardTile("airQuality", "device.airQuality", width: 6, height: 3) {
@@ -46,11 +46,11 @@ tiles(scale: 2) {
             [value: 150, color: "#f70909"],
             [value: 200, color: "#5100a3"]]
    		}
+             
                
                
                
-               
-	standardTile("temperature", "device.temperature", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+	standardTile("temperature", "device.temperature", width: 2, height: 2 , decoration: "flat") {
             state "default", label: '${currentValue}º',unit:'${currentValue}', 
                   icon: "st.Weather.weather2", backgroundColors:[
             [value: 10, color: "#153591"], 
@@ -64,7 +64,7 @@ tiles(scale: 2) {
         
 	standardTile("humidity", "device.humidity", width: 2, height: 2) {
             state "default", label: '${currentValue}%', 
-                  icon: "st.Weather.weather12", backgroundColors:[
+                  icon: "st.Weather.weather12" , backgroundColors:[
             [value: 40, color: "#153591"],
             [value: 50, color: "#1e9cbb"],
             [value: 60, color: "#90d2a7"],
@@ -73,6 +73,7 @@ tiles(scale: 2) {
             [value: 90, color: "#d04e00"],
             [value: 95, color: "#bc2323"]]
         }
+        
 		standardTile("carbonDioxide", "device.carbonDioxide", width: 2, height: 2,decoration: "flat") {
             state "default", label: '${currentValue}', 
 
@@ -132,7 +133,9 @@ tiles(scale: 2) {
 
     standardTile("RealFeellevel", "device.RealFeellevel",   width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
             state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png",backgroundColor:"#999999"}
-            
+    standardTile("Status", "device.status", width: 6, height: 2) {
+ 		state "default", label:'${currentValue}'
+ 		}         
     standardTile("TWC_web", "device.TWC_web",  width: 6, height: 3,  canChangeIcon: false ) {
             state "default", icon: "https://business.weather.com/img/the-weather-company-logo.png"  , backgroundColor: "#999999"    }   
              
@@ -198,7 +201,7 @@ tiles(scale: 2) {
                 state "46",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/46.png"
                 state "47",icon:"https://raw.githubusercontent.com/philippeportesppo/TheWeatherCompany_SmartThings/master/icons/47.png"
         	}
-            
+           
     standardTile("refresh", "device.refresh", decoration: "flat", width: 2, height: 2) {
  		state "default", action:"refresh", icon:"st.secondary.refresh"
  		} 
@@ -218,9 +221,11 @@ tiles(scale: 2) {
             [value: 150, color: "#f70909"],
             [value: 200, color: "#5100a3"]]
    		}
-	main("iaq_main")
-	details(["airQuality","carbonDioxide","pm2_5level","pm10level","tvoclevel","temperature","humidity","EMClevel","RealFeellevel","dewpointlevel","TWC_web","TWCtemperaturecallevel","TWChumiditylevel","TWCFeelsLikelevel","TWCdewpointlevel","TWC_Icon_UrlIcon","weather","refresh" ])
+	main("airQuality")
+	details(["airQuality","carbonDioxide","pm2_5level","pm10level","tvoclevel","temperature","humidity","EMClevel","RealFeellevel","dewpointlevel","Status","TWC_web","TWCtemperaturecallevel","TWChumiditylevel","TWCFeelsLikelevel","TWCdewpointlevel","TWC_Icon_UrlIcon","weather","refresh" ])
  	}
+   
+    
     
 }    
 
@@ -247,7 +252,7 @@ def installed() {
 def updated() {
 
 	log.debug "Executing 'updated'"
-
+	state.requestCounter=0
  	refresh()
 }
 
@@ -258,7 +263,17 @@ def initialize() {
 
 
 def poll(){
-log.debug "Executing 'poll'"
+	log.debug "Executing 'poll'"
+    log.debug "poll state.requestCounter = ${state.requestCounter}"
+    if (state.requestCounter == 1)
+    {
+    	sendEvent(name:"status", value:"SmartThings is not receiving any data from Airmentor. Please check the Pi is running properly or restart it", display:true)
+        log.debug "SmartThings is not receiving any data from Airmentor. Please check the Pi is running properly or restart it"
+    }
+    else
+    {
+    	sendEvent(name:"status", value:"Connected to Pi and AirMentor", display:true)
+    }
     refresh()
 }
 
@@ -275,33 +290,50 @@ String convertTemperature( float temperatureCelcius, unit)
 
 def parse(description) {
 	log.debug "Executing 'parse'"
-        
+ 
     if (state.requestCounter==0)
     	return null
 
+	log.debug ("parse state.requestCounter = ${state.requestCounter}")
+
 	// Prevent parse to be executed twice (ST bug?)
-	state.requestCounter=0
+	state.requestCounter = 0
 	def events = []
     //log.debug "The device id receiving is: $device.deviceNetworkId"
     //log.debug description
     def msg = parseLanMessage(description)
     //log.debug msg.body
+    log.debug ("parse msg.status = ${msg.status}")
+
+    
 	if (msg.status == 200)
     {
         def xmlParser = new XmlParser()
+        // log.debug msg
         def html = xmlParser.parseText(msg.body)
-
+		// log.debug msg.body
 		// log.debug html
-        log.debug "CO2: ${html.body.table.tr[1].td[0].text()}"
-        log.debug "PM2.5: ${html.body.table.tr[1].td[1].text()}"
-        log.debug "PM10: ${html.body.table.tr[1].td[2].text()}"
-        log.debug "Temperature: ${html.body.table.tr[1].td[3].text()}"
-        log.debug "Temperature_Cal: ${html.body.table.tr[1].td[4].text()}"
-        log.debug "humidity: ${html.body.table.tr[1].td[5].text()}"
-        log.debug "TVOC: ${html.body.table.tr[1].td[6].text()}"        
-        log.debug "IAQ: ${html.body.table.tr[1].td[7].text()}"
-        log.debug "Battery: ${html.body.table.tr[1].td[8].text()}"
         
+        if (html.body.table.tr[1].td[0].text() == "")
+        	{
+        		
+                sendEvent(name:"status", value:"AirMentor is not sending any data. Please check connection between Pi and AirMentor", display:true)
+                log.debug "AirMentor is not sending any data. Please check connection between Pi and AirMentor"
+        	}
+        else
+            {   
+                sendEvent(name:"status", value:"Connected to Pi and AirMentor")
+
+                log.debug "CO2: ${html.body.table.tr[1].td[0].text()}"
+                log.debug "PM2.5: ${html.body.table.tr[1].td[1].text()}"
+                log.debug "PM10: ${html.body.table.tr[1].td[2].text()}"
+                log.debug "Temperature: ${html.body.table.tr[1].td[3].text()}"
+                log.debug "Temperature_Cal: ${html.body.table.tr[1].td[4].text()}"
+                log.debug "humidity: ${html.body.table.tr[1].td[5].text()}"
+                log.debug "TVOC: ${html.body.table.tr[1].td[6].text()}"        
+                log.debug "IAQ: ${html.body.table.tr[1].td[7].text()}"
+                log.debug "Battery: ${html.body.table.tr[1].td[8].text()}"
+			}        
         // Now use ST 
         def mymap = getTwcConditions()
         
@@ -365,7 +397,7 @@ def parse(description) {
         // TD: =243.04*(LN(RH/100)+((17.625*T)/(243.04+T)))/(17.625-LN(RH/100)-((17.625*T)/(243.04+T)))
         // From http://andrew.rsmas.miami.edu/bmcnoldy/Humidity.html
         float dew_point_value = 243.04*(Math.log(humid_float.toFloat()/100.0)+((17.625*temp_cal_float.toFloat())/(243.04+temp_cal_float.toFloat())))/(17.625-Math.log(humid_float.toFloat()/100.0)-((17.625*temp_cal_float.toFloat())/(243.04+temp_cal_float.toFloat()))) 
-		events <<  createEvent(name: "dewpointlevel", 	  value: convertTemperature(dew_point_value,temperatureScale), unit: temperatureScale)
+		events <<  createEvent(name: "dewpointlevel", 	 displayed:false, value: convertTemperature(dew_point_value,temperatureScale), unit: temperatureScale)
 
  	    // Equilibrium Moisture Content Calculator
         def emc_W  =(349+(1.29*temp_cal_float.toFloat())+(0.0135*temp_cal_float.toFloat()*temp_cal_float.toFloat()))	
@@ -374,18 +406,18 @@ def parse(description) {
         def emc_k2 = 1.91+(0.0407*temp_cal_float.toFloat())-(0.000293*temp_cal_float.toFloat()*temp_cal_float.toFloat())
 		def emc_humid=humid_float.toFloat()/100
 		def EMC = (1800/emc_W)*(((emc_k*emc_humid)/(1-emc_k*emc_humid))+(((emc_k1*emc_k*emc_humid)+(2*emc_k1*emc_k2*emc_k*emc_k*emc_humid*emc_humid))/(1+(emc_k1*emc_k*emc_humid)+(emc_k1*emc_k2*emc_k*emc_k*emc_humid*emc_humid))))
-        events <<  createEvent(name: "EMClevel", value: EMC.toString().format(java.util.Locale.US,"%.1f", EMC.toFloat()))
+        events <<  createEvent(name: "EMClevel",  displayed:false, value: EMC.toString().format(java.util.Locale.US,"%.1f", EMC.toFloat()))
 
 		// Real feel indoor temperature
         float realfeel= temp_cal_float.toFloat()+0.348*emc_humid*6.105*Math.exp((17.27*temp_cal_float.toFloat())/(237.7+temp_cal_float.toFloat()))-4.25
-        events <<  createEvent(name: "RealFeellevel", value: convertTemperature(realfeel,temperatureScale), unit: temperatureScale)
+        events <<  createEvent(name: "RealFeellevel",  displayed:false, value: convertTemperature(realfeel,temperatureScale), unit: temperatureScale)
  
  		// UnderGround Weather references
-       	events <<   createEvent(name: "TWCFeelsLikelevel", value:mymap['temperatureFeelsLike'], unit: temperatureScale)
-        events <<   createEvent(name: "TWCdewpointlevel", value: mymap['temperatureDewPoint'], unit: temperatureScale)
+       	events <<   createEvent(name: "TWCFeelsLikelevel", displayed:false, value:mymap['temperatureFeelsLike'], unit: temperatureScale)
+        events <<   createEvent(name: "TWCdewpointlevel", displayed:false, value: mymap['temperatureDewPoint'], unit: temperatureScale)
         events <<   createEvent(name: "TWChumiditylevel", value: mymap['relativeHumidity'])
        	events <<   createEvent(name: "TWCtemperaturecallevel", value: mymap['temperature'], unit: temperatureScale)
-       	events <<   createEvent(name: "TWC_Icon_UrlIcon", value: mymap['iconCode'])
+       	events <<   createEvent(name: "TWC_Icon_UrlIcon", displayed:false, value: mymap['iconCode'])
          
         // Alert management    
         def map = generate_app_event( "IAQ",iaq_int.toInteger(), state.IAQ_event, 50, 100,150, 200)
@@ -423,6 +455,8 @@ def parse(description) {
 
 	}
 
+	log.debug ("end parse state.requestCounter = ${state.requestCounter}")
+
     return events
 }
 
@@ -431,7 +465,7 @@ private generate_app_event( name_, int value_, previous, int thres_moderate, int
   def map = [:] 
   def fire_event = false
   map.name = name_
-  log.debug("generate_app_event: ${name_} ${value_} ${thres_moderate} ${thres_unhealthy_sensitive} ${thres_unhealthy} ${thres_very_unhealty}")
+  //log.debug("generate_app_event: ${name_} ${value_} ${thres_moderate} ${thres_unhealthy_sensitive} ${thres_unhealthy} ${thres_very_unhealty}")
   if (value_>thres_very_unhealty)
   	{   
         map.value="very unhealthy"
@@ -475,20 +509,20 @@ private generate_app_event( name_, int value_, previous, int thres_moderate, int
     
   if (fire_event)
   	{
-    	log.debug("Generated alert for : ${name_} ${map.value}")
+    	//log.debug("Generated alert for : ${name_} ${map.value}")
   		map.isStateChange = true 
     	map.displayed = true    
     	return map
     }
   else
   	{
-     	log.debug("No alert generated for ${name_}")
+     	// log.debug("No alert generated for ${name_}")
     }
 }
 
 def refresh() {
 	log.debug "Executing refresh"
-	
+	log.debug location.hubs[0].status
     def host = getDataValue("ip")
 
     def port = getDataValue("port")
@@ -499,19 +533,21 @@ def refresh() {
  
     def headers = [:] 
     headers.put("HOST", "$host:$port")
- 
+ 	log.debug ("refresh state.requestCounter = ${state.requestCounter}")
   try {
     def hubAction = new physicalgraph.device.HubAction(
     	method: "GET",
     	path: path,
     	headers: headers
         )
-  		state.requestCounter=1
+  		state.requestCounter = 1
         return hubAction
     
     }
     catch (Exception e) {
     	log.debug "Hit Exception $e on $hubAction"
+        sendEvent(name:"status", value:"HubAction to Pi failed!", display:true)
+        state.requestCounter = 0
     }
     
 }

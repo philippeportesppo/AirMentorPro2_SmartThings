@@ -14,14 +14,16 @@
  *
  */
 metadata {
-definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", oauth: true, ocfDeviceType: "x.com.st.airqualitylevel", mnmn: "SmartThings", vid:"generic-carbon-monoxide") {
+definition (name: "Air Mentor Pro 2", namespace: "philippeportesppo", author: "Philippe PORTES", mnmn:"SmartThings", vid:"generic-air-quality",  ocfDeviceType:"oic.r.airquality") {
     	capability "refresh"
         capability "polling"
         capability "sensor"
+        capability "capability.temperatureMeasurement"
         capability "capability.airQualitySensor"
 		capability "capability.carbonDioxideMeasurement"
-        capability "capability.temperatureMeasurement"
         capability "capability.relativeHumidityMeasurement"
+        capability "capability.dustSensor"
+        capability "capability.tvocMeasurement"
 		
 }
 
@@ -85,8 +87,9 @@ tiles(scale: 2) {
             [value: 1000, color: "#f7a709"],
             [value: 2500, color: "#f70909"]]
         }
-        standardTile("pm2_5level", "device.pm2_5level", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
-            state "default", label: '${currentValue}', 
+        
+        standardTile("fineDustLevel", "device.fineDustLevel", width: 2, height: 2, decoration: "flat") {
+            state "default", label: '${currentValue}',unit:"\u03bcg/m^3", 
 
                   icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/particulate_pm25.png", backgroundColors:[
 
@@ -97,8 +100,9 @@ tiles(scale: 2) {
             [value: 66, color: "#f70909"],
             [value: 150, color: "#5100a3"]]
         }
-        standardTile("pm10level", "device.pm10level", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
-            state "default", label: '${currentValue}', 
+        
+        standardTile("dustLevel", "device.dustLevel", width: 2, height: 2, decoration: "flat") {
+            state "default", label: '${currentValue}',unit:"\u03bcg/m^3", 
 
                   icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/particulate_pm10.png", backgroundColors:[
 
@@ -109,7 +113,7 @@ tiles(scale: 2) {
             [value: 255, color: "#f70909"],
             [value: 355, color: "#5100a3"]]
         }
-        standardTile("tvoclevel", "device.tvoclevel", width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+        standardTile("tvocLevel", "device.tvocLevel", width: 2, height: 2, decoration: "flat") {
             state "default", label: '${currentValue}',unit:'ppm', 
                   icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/TVOC-Icon.png", backgroundColors:[
             [value: -1, color: "#1e9cbb"],
@@ -120,10 +124,10 @@ tiles(scale: 2) {
             [value: 1600, color: "#5100a3"]]
         }
 
- 	standardTile("dewpointlevel", "device.dewpointlevel",  width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+ 	standardTile("dewpointlevel", "device.dewpointlevel",  width: 2, height: 2, decoration: "flat") {
             state "default", label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/dewpoint.png", backgroundColor:"#888888"}
             
-  	standardTile("EMClevel", "device.EMClevel",  width: 2, height: 2, decoration: "flat",canChangeIcon: false) {
+  	standardTile("EMClevel", "device.EMClevel",  width: 2, height: 2, decoration: "flat") {
             state "default",  label: '${currentValue}%',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/EMC.png", backgroundColors:[
             [value: 0, color: "#1d9114"],
             [value: 4.5, color: "#1d9114"],
@@ -131,7 +135,7 @@ tiles(scale: 2) {
             [value: 16, color: "#f70909"]]
             }
 
-    standardTile("RealFeellevel", "device.RealFeellevel",   width: 2, height: 2, decoration: "flat", canChangeIcon: false) {
+    standardTile("RealFeellevel", "device.RealFeellevel",   width: 2, height: 2, decoration: "flat") {
             state "default",  label: '${currentValue}º',unit:'${currentValue}',icon: "https://raw.githubusercontent.com/philippeportesppo/AirMentorPro2_SmartThings/master/images/realfeel.png",backgroundColor:"#999999"}
     standardTile("Status", "device.status", width: 6, height: 2) {
  		state "default", label:'${currentValue}'
@@ -222,7 +226,7 @@ tiles(scale: 2) {
             [value: 200, color: "#5100a3"]]
    		}
 	main("airQuality")
-	details(["airQuality","carbonDioxide","pm2_5level","pm10level","tvoclevel","temperature","humidity","EMClevel","RealFeellevel","dewpointlevel","Status","TWC_web","TWCtemperaturecallevel","TWChumiditylevel","TWCFeelsLikelevel","TWCdewpointlevel","TWC_Icon_UrlIcon","weather","refresh" ])
+	details(["airQuality","carbonDioxide","fineDustLevel","dustLevel","tvocLevel","temperature","humidity","EMClevel","RealFeellevel","dewpointlevel","Status","TWC_web","TWCtemperaturecallevel","TWChumiditylevel","TWCFeelsLikelevel","TWCdewpointlevel","TWC_Icon_UrlIcon","weather","refresh" ])
  	}
    
     
@@ -382,9 +386,9 @@ def parse(description) {
         def temperatureScale = getTemperatureScale()
 
         events <<  createEvent(name: "carbonDioxide",     		value: co2_int.toString())
-        events <<  createEvent(name: "pm2_5level",       value: pm2_5_int.toString())
-        events <<  createEvent(name: "pm10level",    		value: pm10_int.toString())
-        events <<  createEvent(name: "tvoclevel",    		value: tvoc_int.toString())
+        events <<  createEvent(name: "fineDustLevel",       value: pm2_5_int.toString())
+        events <<  createEvent(name: "dustLevel",    		value: pm10_int.toString())
+        events <<  createEvent(name: "tvocLevel",    		value: tvoc_int.toString())
         events <<  createEvent(name: "airQuality",     		value: iaq_int.toString())
         events <<  createEvent(name: "iaq_main",       value: iaq_int.toString())
         
